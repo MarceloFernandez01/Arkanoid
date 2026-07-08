@@ -1,7 +1,7 @@
 export const CONFIG = {
   canvas: { w: 800, h: 600 },
-  paddle: { w: 162, h: 14, marginBottom: 40, speed: 300 },
-  ball: { w: 16, h: 16, speed: 200 },
+  paddle: { w: 162, h: 14, marginBottom: 40, speed: 500 },
+  ball: { w: 16, h: 16, speed: 400 },
   grid: { rows: 5, cols: 8, blockW: 90, blockH: 30, gap: 10, marginTop: 60, marginX: 5 },
   colors: [ 'gray', 'red', 'yellow', 'cyan', 'magenta', 'hotpink', 'green' ],
 };
@@ -50,3 +50,15 @@ export const state = {
   },
   blocks: generateBlocks(),
 };
+
+export function resetGame() {
+  state.screen = 'menu';
+  state.score = 0;
+  state.lives = 3;
+  state.paddle.x = ( CONFIG.canvas.w - state.paddle.w ) / 2;
+  state.ball.x = CONFIG.canvas.w / 2 - state.ball.w / 2;
+  state.ball.y = CONFIG.canvas.h - CONFIG.paddle.marginBottom - state.ball.h;
+  state.ball.vx = CONFIG.ball.speed;
+  state.ball.vy = -CONFIG.ball.speed;
+  state.blocks = generateBlocks();
+}
