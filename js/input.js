@@ -9,6 +9,14 @@ export function setupInput( canvas ) {
     if ( e.code === 'Space' && state.screen === 'menu' ) {
       state.screen = 'playing';
     }
+
+    if ( e.code === 'KeyP' || e.code === 'Escape' ) {
+      if ( state.screen === 'playing' ) {
+        state.screen = 'paused';
+      } else if ( state.screen === 'paused' ) {
+        state.screen = 'playing';
+      }
+    }
   } );
 
   window.addEventListener( 'keyup', ( e ) => {

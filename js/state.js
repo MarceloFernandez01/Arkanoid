@@ -6,6 +6,29 @@ export const CONFIG = {
   colors: [ 'gray', 'red', 'yellow', 'cyan', 'magenta', 'hotpink', 'green' ],
 };
 
+function generateBlocks() {
+  const { rows, cols, blockW, blockH, gap, marginTop, marginX } = CONFIG.grid;
+  const blocks = [];
+
+  for ( let row = 0; row < rows; row++ ) {
+    for ( let col = 0; col < cols; col++ ) {
+      blocks.push( {
+        row,
+        col,
+        x: marginX + col * ( blockW + gap ),
+        y: marginTop + row * ( blockH + gap ),
+        w: blockW,
+        h: blockH,
+        color: CONFIG.colors[ Math.floor( Math.random() * CONFIG.colors.length ) ],
+        hits: 0,
+        broken: false,
+      } );
+    }
+  }
+
+  return blocks;
+}
+
 export const state = {
   screen: 'menu', // 'menu' | 'playing' | 'paused' | 'gameover' | 'win'
   score: 0,
@@ -25,5 +48,5 @@ export const state = {
     vx: CONFIG.ball.speed,
     vy: -CONFIG.ball.speed,
   },
-  blocks: [],
+  blocks: generateBlocks(),
 };

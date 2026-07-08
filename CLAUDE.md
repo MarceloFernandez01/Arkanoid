@@ -4,9 +4,18 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Estado del proyecto
 
-Este es un juego de Arkanoid con HTML, CSS y JavaScript **sin dependencias externas**. Aún no está implementado: por ahora el repositorio solo contiene los assets del juego (spritesheet, sonidos) y no existe ningún `index.html`, `.js` o `.css` del juego en sí.
+Este es un juego de Arkanoid con HTML, CSS y JavaScript **sin dependencias externas**. El MVP (`specs/01-arkanoid-mvp.md`, estado `Implementado`) ya está implementado: un solo nivel jugable con menú, HUD de score/vidas, Game Over, victoria y pausa.
 
-Al empezar a trabajar aquí, no asumas que existe una arquitectura previa — revisa primero qué archivos hay antes de proponer cambios.
+Estructura actual:
+
+- `index.html`, `style.css` — canvas 800x600 y estilos.
+- `js/state.js` — estado global (`state`) y constantes de configuración (`CONFIG`).
+- `js/render.js` — dibujo de cada pantalla según `state.screen`.
+- `js/input.js` — teclado (movimiento del paddle, pausa, iniciar partida).
+- `js/collisions.js` — física de la bola, colisiones con paddle/bloques, vidas y condición de victoria.
+- `js/main.js` — loop principal (`requestAnimationFrame` con delta-time).
+
+Al empezar a trabajar aquí, no asumas que esta estructura sigue vigente tal cual — revisa primero qué archivos hay antes de proponer cambios, sobre todo si se agregaron specs nuevas (power-ups, niveles, sonido, etc. quedaron fuera de alcance del MVP y podrían implementarse en specs futuras).
 
 ## Flujo de trabajo: spec-driven
 
@@ -19,7 +28,7 @@ Este repo usa las skills `spec` y `spec-impl` (definidas en `.agents/skills/` y 
 
 ## Restricción técnica clave
 
-Cero dependencias: no se debe introducir ningún framework, bundler o librería externa (ni siquiera vía CDN) salvo que el usuario lo pida explícitamente. El juego debe correr abriendo el HTML directamente o con un servidor estático simple.
+Cero dependencias: no se debe introducir ningún framework, bundler o librería externa (ni siquiera vía CDN) salvo que el usuario lo pida explícitamente. El juego usa ES Modules nativos, por lo que **no se puede abrir `index.html` directamente con `file://`** (los navegadores bloquean `import`/`export` en ese protocolo) — hace falta un servidor estático simple (`python -m http.server`, Live Server de VSCode, `npx serve`, etc.), lo cual no cuenta como dependencia del proyecto.
 
 ## Assets existentes
 

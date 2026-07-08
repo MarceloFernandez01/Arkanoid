@@ -1,6 +1,6 @@
 # SPEC 01 — MVP jugable de Arkanoid
 
-> **Status:** Aprobado
+> **Status:** Implementado
 > **Depends on:** Ninguna
 > **Date:** 2026-07-08
 > **Objective:** Construir un MVP jugable de Arkanoid con un solo nivel, controlado por teclado, usando los assets existentes del spritesheet.
@@ -83,24 +83,24 @@ Conventions:
 
 ## Acceptance criteria
 
-- [ ] El juego carga sin errores en la consola al abrir `index.html`.
-- [ ] La pantalla de menú se muestra al cargar, con el texto "Jugar" visible.
-- [ ] Presionar espacio (o clic en "Jugar") inicia la partida.
-- [ ] El paddle se mueve con las flechas izquierda/derecha y con A/D, sin salir de los límites del canvas.
-- [ ] La bola rebota correctamente en las paredes izquierda, derecha y superior.
-- [ ] El ángulo de rebote de la bola cambia según el punto de impacto en el paddle.
-- [ ] Se dibujan 40 bloques (5 filas x 8 columnas) al iniciar la partida.
-- [ ] Cada golpe a un bloque no roto suma exactamente 10 puntos.
-- [ ] Un bloque se rompe (deja de dibujarse y de colisionar) exactamente al tercer golpe, sumando 100 puntos adicionales en ese momento.
-- [ ] El score visible en el HUD se actualiza en tiempo real con cada golpe/rotura de bloque.
-- [ ] Cuando la bola cae por debajo del paddle, se resta una vida y la bola/paddle se reposicionan.
-- [ ] Las vidas restantes se muestran en el HUD.
-- [ ] Al perder la tercera vida, se muestra la pantalla de Game Over.
-- [ ] Al romper los 40 bloques, se muestra la pantalla de victoria con un mensaje felicitando al jugador.
-- [ ] Presionar la tecla de pausa detiene el movimiento de la bola y bloquea el movimiento del paddle.
-- [ ] Presionar la tecla de pausa nuevamente reanuda el juego desde donde quedó.
-- [ ] El código está organizado en los módulos `js/state.js`, `js/render.js`, `js/input.js`, `js/collisions.js` y `js/main.js`, sin lógica de juego dentro de `index.html`.
-- [ ] No se agregó ninguna dependencia externa (framework, bundler o librería vía CDN).
+- [x] El juego carga sin errores en la consola al abrir `index.html`.
+- [x] La pantalla de menú se muestra al cargar, con el texto "Jugar" visible.
+- [x] Presionar espacio (o clic en "Jugar") inicia la partida.
+- [x] El paddle se mueve con las flechas izquierda/derecha y con A/D, sin salir de los límites del canvas.
+- [x] La bola rebota correctamente en las paredes izquierda, derecha y superior.
+- [x] El ángulo de rebote de la bola cambia según el punto de impacto en el paddle.
+- [x] Se dibujan 40 bloques (5 filas x 8 columnas) al iniciar la partida.
+- [x] Cada golpe a un bloque no roto suma exactamente 10 puntos.
+- [x] Un bloque se rompe (deja de dibujarse y de colisionar) exactamente al tercer golpe, sumando 100 puntos adicionales en ese momento.
+- [x] El score visible en el HUD se actualiza en tiempo real con cada golpe/rotura de bloque.
+- [x] Cuando la bola cae por debajo del paddle, se resta una vida y la bola/paddle se reposicionan.
+- [x] Las vidas restantes se muestran en el HUD.
+- [x] Al perder la tercera vida, se muestra la pantalla de Game Over.
+- [x] Al romper los 40 bloques, se muestra la pantalla de victoria con un mensaje felicitando al jugador.
+- [x] Presionar la tecla de pausa detiene el movimiento de la bola y bloquea el movimiento del paddle.
+- [x] Presionar la tecla de pausa nuevamente reanuda el juego desde donde quedó.
+- [x] El código está organizado en los módulos `js/state.js`, `js/render.js`, `js/input.js`, `js/collisions.js` y `js/main.js`, sin lógica de juego dentro de `index.html`.
+- [x] No se agregó ninguna dependencia externa (framework, bundler o librería vía CDN).
 
 ---
 
