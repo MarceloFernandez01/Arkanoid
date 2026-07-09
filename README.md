@@ -2,11 +2,11 @@
 
 Arkanoid con HTML, CSS y JavaScript, sin dependencias externas.
 
-**Jugar online:** https://marcelofernandez01.github.io/Arkanoid/
-
 MVP jugable implementado según `specs/01-arkanoid-mvp.md`, con animación de destrucción de bloques (`specs/02-block-destruction-animation.md`), ajuste de frames de daño progresivo (`specs/03-block-damage-frames-adjustment.md`), efectos de sonido (`specs/04-sound-effects.md`) y selección/progresión de 3 niveles (`specs/05-level-selection-and-progression.md`).
 
 ## Cómo jugar
+
+**Jugar online:** https://marcelofernandez01.github.io/Arkanoid/
 
 El juego usa ES Modules nativos (`<script type="module">`), por lo que los navegadores bloquean su carga si abrís `index.html` directamente con doble clic (protocolo `file://`). Hace falta levantar un servidor estático simple, por ejemplo:
 
