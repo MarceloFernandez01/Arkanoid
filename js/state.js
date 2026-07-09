@@ -97,6 +97,8 @@ export const state = {
   },
   blocks: generateBlocks( 1 ),
   blockAnimations: [],
+  menuScales: LEVELS.map( () => 1 ),
+  menuInputCooldown: 0,
 };
 
 export function resetGame() {
@@ -113,4 +115,6 @@ export function resetGame() {
   state.ball.attached = true;
   state.blocks = generateBlocks( state.currentLevel );
   state.blockAnimations = [];
+  state.menuScales = LEVELS.map( () => 1 );
+  state.menuInputCooldown = 0;
 }

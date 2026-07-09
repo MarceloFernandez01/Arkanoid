@@ -14,9 +14,14 @@ function renderMenu( ctx, state ) {
   LEVELS.forEach( ( level, i ) => {
     const y = h / 2 + i * 40;
     const selected = i === state.menuSelection;
+    const scale = state.menuScales[ i ];
 
+    ctx.save();
+    ctx.translate( w / 2, y );
+    ctx.scale( scale, scale );
     ctx.fillStyle = selected ? '#ffde00' : '#fff';
-    ctx.fillText( selected ? `> ${ level.name } <` : level.name, w / 2, y );
+    ctx.fillText( level.name, 0, 0 );
+    ctx.restore();
   } );
 }
 

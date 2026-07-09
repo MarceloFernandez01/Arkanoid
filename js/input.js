@@ -2,6 +2,10 @@ import { state, CONFIG, LEVELS, generateBlocks } from './state.js';
 
 const keys = {};
 
+const MENU_SELECTED_SCALE = 1.18;
+const MENU_ZOOM_SPEED = 12;
+const MENU_INPUT_LAG = 0.15;
+
 function startLevel( levelId ) {
   state.currentLevel = levelId;
   state.score = 0;
@@ -22,10 +26,11 @@ export function setupInput( canvas ) {
     keys[ e.code ] = true;
 
     if ( state.screen === 'menu' ) {
-      if ( e.code === 'ArrowUp' ) {
-        state.menuSelection = ( state.menuSelection - 1 + LEVELS.length ) % LEVELS.length;
-      } else if ( e.code === 'ArrowDown' ) {
-        state.menuSelection = ( state.menuSelection + 1 ) % LEVELS.length;
+      if ( ( e.code === 'ArrowUp' || e.code === 'ArrowDown' ) && state.menuInputCooldown <= 0 ) {
+        const dir = e.code === 'ArrowUp' ? -1 : 1;
+
+        state.menuSelection = ( state.menuSelection + dir + LEVELS.length ) % LEVELS.length;
+        state.menuInputCooldown = MENU_INPUT_LAG;
       } else if ( e.code === 'Space' || e.code === 'Enter' ) {
         startLevel( state.menuSelection + 1 );
       }
@@ -50,6 +55,21 @@ export function setupInput( canvas ) {
 
   window.addEventListener( 'keyup', ( e ) => {
     keys[ e.code ] = false;
+  } );
+}
+
+export function updateMenu( dt ) {
+  if ( state.screen !== 'menu' ) return;
+
+  if ( state.menuInputCooldown > 0 ) {
+    state.menuInputCooldown = Math.max( 0, state.menuInputCooldown - dt );
+  }
+
+  LEVELS.forEach( ( level, i ) => {
+    const target = i === state.menuSelection ? MENU_SELECTED_SCALE : 1;
+    const scale = state.menuScales[ i ];
+
+    state.menuScales[ i ] = scale + ( target - scale ) * Math.min( 1, dt * MENU_ZOOM_SPEED );
   } );
 }
 

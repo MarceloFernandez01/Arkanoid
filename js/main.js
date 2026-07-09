@@ -1,6 +1,6 @@
 import { state, CONFIG, resetGame, generateBlocks } from './state.js';
 import { render } from './render.js';
-import { setupInput, updatePaddle } from './input.js';
+import { setupInput, updatePaddle, updateMenu } from './input.js';
 import { updateBall, updateBlockAnimations } from './collisions.js';
 
 const canvas = document.getElementById( 'game' );
@@ -28,6 +28,7 @@ function goToNextLevel() {
 }
 
 function update( dt ) {
+  updateMenu( dt );
   updatePaddle( dt );
   updateBall( dt );
   updateBlockAnimations( dt );
