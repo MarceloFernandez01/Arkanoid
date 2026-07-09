@@ -8,6 +8,14 @@ export function setupInput( canvas ) {
 
     if ( e.code === 'Space' && state.screen === 'menu' ) {
       state.screen = 'playing';
+    } else if (
+      ( e.code === 'Space' || e.code === 'Enter' ) &&
+      state.screen === 'playing' &&
+      state.ball.attached
+    ) {
+      state.ball.attached = false;
+      state.ball.vx = CONFIG.ball.speed;
+      state.ball.vy = -CONFIG.ball.speed;
     }
 
     if ( e.code === 'KeyP' || e.code === 'Escape' ) {

@@ -50,6 +50,7 @@ export const state = {
     h: CONFIG.ball.h,
     vx: CONFIG.ball.speed,
     vy: -CONFIG.ball.speed,
+    attached: true,
   },
   blocks: generateBlocks(),
   blockAnimations: [],
@@ -64,6 +65,7 @@ export function resetGame() {
   state.ball.y = CONFIG.canvas.h - CONFIG.paddle.marginBottom - state.ball.h;
   state.ball.vx = CONFIG.ball.speed;
   state.ball.vy = -CONFIG.ball.speed;
+  state.ball.attached = true;
   state.blocks = generateBlocks();
   state.blockAnimations = [];
 }

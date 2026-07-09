@@ -1,4 +1,5 @@
 import { state, CONFIG } from './state.js';
+import { playSound } from './sound.js';
 
 const MAX_BOUNCE_ANGLE = 75 * ( Math.PI / 180 );
 
@@ -51,10 +52,9 @@ function resetRound() {
 
   paddle.x = ( CONFIG.canvas.w - paddle.w ) / 2;
 
-  ball.x = CONFIG.canvas.w / 2 - ball.w / 2;
-  ball.y = CONFIG.canvas.h - CONFIG.paddle.marginBottom - ball.h;
   ball.vx = CONFIG.ball.speed;
   ball.vy = -CONFIG.ball.speed;
+  ball.attached = true;
 }
 
 function startBlockAnimation( block, fromFrame, toFrame, removeOnEnd ) {
@@ -83,14 +83,17 @@ function updateBlocks( ball ) {
       block.broken = true;
       state.score += 100;
       startBlockAnimation( block, 4, 10, true );
+      playSound( 'break' );
 
       if ( state.blocks.every( ( b ) => b.broken ) ) {
         state.screen = 'win';
       }
     } else if ( block.hits === 1 ) {
       startBlockAnimation( block, -1, 1, false );
+      playSound( 'bounce' );
     } else if ( block.hits === 2 ) {
       startBlockAnimation( block, 1, 4, false );
+      playSound( 'bounce' );
     }
 
     break;
@@ -118,24 +121,34 @@ export function updateBall( dt ) {
 
   const { ball, paddle } = state;
 
+  if ( ball.attached ) {
+    ball.x = paddle.x + paddle.w / 2 - ball.w / 2;
+    ball.y = paddle.y - ball.h;
+    return;
+  }
+
   ball.x += ball.vx * dt;
   ball.y += ball.vy * dt;
 
   if ( ball.x <= 0 ) {
     ball.x = 0;
     ball.vx *= -1;
+    playSound( 'bounce' );
   } else if ( ball.x + ball.w >= CONFIG.canvas.w ) {
     ball.x = CONFIG.canvas.w - ball.w;
     ball.vx *= -1;
+    playSound( 'bounce' );
   }
 
   if ( ball.y <= 0 ) {
     ball.y = 0;
     ball.vy *= -1;
+    playSound( 'bounce' );
   }
 
   if ( checkPaddleCollision( ball, paddle ) ) {
     bounceOffPaddle( ball, paddle );
+    playSound( 'bounce' );
   }
 
   updateBlocks( ball );
