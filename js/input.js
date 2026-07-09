@@ -5,6 +5,8 @@ const keys = {};
 const MENU_SELECTED_SCALE = 1.18;
 const MENU_ZOOM_SPEED = 12;
 const MENU_INPUT_LAG = 0.15;
+const VOLUME_STEP = 0.1;
+const MENU_ITEM_COUNT = LEVELS.length + 1; // niveles + "Opciones"
 
 function startLevel( levelId ) {
   state.currentLevel = levelId;
@@ -29,25 +31,37 @@ export function setupInput( canvas ) {
       if ( ( e.code === 'ArrowUp' || e.code === 'ArrowDown' ) && state.menuInputCooldown <= 0 ) {
         const dir = e.code === 'ArrowUp' ? -1 : 1;
 
-        state.menuSelection = ( state.menuSelection + dir + LEVELS.length ) % LEVELS.length;
+        state.menuSelection = ( state.menuSelection + dir + MENU_ITEM_COUNT ) % MENU_ITEM_COUNT;
         state.menuInputCooldown = MENU_INPUT_LAG;
       } else if ( e.code === 'Space' || e.code === 'Enter' ) {
-        startLevel( state.menuSelection + 1 );
+        if ( state.menuSelection < LEVELS.length ) {
+          startLevel( state.menuSelection + 1 );
+        } else {
+          state.optionsReturnScreen = 'menu';
+          state.screen = 'options';
+        }
       }
-    } else if (
-      ( e.code === 'Space' || e.code === 'Enter' ) &&
-      state.screen === 'playing' &&
-      state.ball.attached
-    ) {
-      state.ball.attached = false;
-      state.ball.vx = CONFIG.ball.speed;
-      state.ball.vy = -CONFIG.ball.speed;
-    }
+    } else if ( state.screen === 'options' ) {
+      if ( e.code === 'ArrowLeft' || e.code === 'ArrowRight' ) {
+        const dir = e.code === 'ArrowLeft' ? -1 : 1;
 
-    if ( e.code === 'KeyP' || e.code === 'Escape' ) {
-      if ( state.screen === 'playing' ) {
+        state.volume = Math.max( 0, Math.min( 1, state.volume + dir * VOLUME_STEP ) );
+      } else if ( e.code === 'Escape' || e.code === 'Enter' || e.code === 'KeyO' ) {
+        state.screen = state.optionsReturnScreen;
+      }
+    } else if ( state.screen === 'playing' ) {
+      if ( ( e.code === 'Space' || e.code === 'Enter' ) && state.ball.attached ) {
+        state.ball.attached = false;
+        state.ball.vx = CONFIG.ball.speed;
+        state.ball.vy = -CONFIG.ball.speed;
+      } else if ( e.code === 'KeyP' || e.code === 'Escape' ) {
         state.screen = 'paused';
-      } else if ( state.screen === 'paused' ) {
+      }
+    } else if ( state.screen === 'paused' ) {
+      if ( e.code === 'KeyO' ) {
+        state.optionsReturnScreen = 'paused';
+        state.screen = 'options';
+      } else if ( e.code === 'KeyP' || e.code === 'Escape' ) {
         state.screen = 'playing';
       }
     }
@@ -65,12 +79,12 @@ export function updateMenu( dt ) {
     state.menuInputCooldown = Math.max( 0, state.menuInputCooldown - dt );
   }
 
-  LEVELS.forEach( ( level, i ) => {
+  for ( let i = 0; i < MENU_ITEM_COUNT; i++ ) {
     const target = i === state.menuSelection ? MENU_SELECTED_SCALE : 1;
     const scale = state.menuScales[ i ];
 
     state.menuScales[ i ] = scale + ( target - scale ) * Math.min( 1, dt * MENU_ZOOM_SPEED );
-  } );
+  }
 }
 
 export function updatePaddle( dt ) {

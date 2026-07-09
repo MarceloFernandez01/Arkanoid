@@ -74,9 +74,11 @@ export function generateBlocks( levelId ) {
 }
 
 export const state = {
-  screen: 'menu', // 'menu' | 'playing' | 'paused' | 'levelComplete' | 'gameover' | 'win'
+  screen: 'menu', // 'menu' | 'playing' | 'paused' | 'options' | 'levelComplete' | 'gameover' | 'win'
   currentLevel: 1,
   menuSelection: 0,
+  optionsReturnScreen: 'menu',
+  volume: 1,
   score: 0,
   lives: 3,
   paddle: {
@@ -97,7 +99,7 @@ export const state = {
   },
   blocks: generateBlocks( 1 ),
   blockAnimations: [],
-  menuScales: LEVELS.map( () => 1 ),
+  menuScales: LEVELS.map( () => 1 ).concat( 1 ),
   menuInputCooldown: 0,
 };
 
@@ -115,6 +117,6 @@ export function resetGame() {
   state.ball.attached = true;
   state.blocks = generateBlocks( state.currentLevel );
   state.blockAnimations = [];
-  state.menuScales = LEVELS.map( () => 1 );
+  state.menuScales = LEVELS.map( () => 1 ).concat( 1 );
   state.menuInputCooldown = 0;
 }

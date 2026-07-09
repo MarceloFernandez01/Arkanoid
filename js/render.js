@@ -2,6 +2,7 @@ import { CONFIG, LEVELS } from './state.js';
 
 function renderMenu( ctx, state ) {
   const { w, h } = CONFIG.canvas;
+  const items = LEVELS.map( ( level ) => level.name ).concat( 'Opciones' );
 
   ctx.fillStyle = '#fff';
   ctx.textAlign = 'center';
@@ -11,7 +12,7 @@ function renderMenu( ctx, state ) {
 
   ctx.font = '24px sans-serif';
 
-  LEVELS.forEach( ( level, i ) => {
+  items.forEach( ( label, i ) => {
     const y = h / 2 + i * 40;
     const selected = i === state.menuSelection;
     const scale = state.menuScales[ i ];
@@ -20,9 +21,26 @@ function renderMenu( ctx, state ) {
     ctx.translate( w / 2, y );
     ctx.scale( scale, scale );
     ctx.fillStyle = selected ? '#ffde00' : '#fff';
-    ctx.fillText( level.name, 0, 0 );
+    ctx.fillText( label, 0, 0 );
     ctx.restore();
   } );
+}
+
+function renderOptions( ctx, state ) {
+  const { w, h } = CONFIG.canvas;
+  const volumePercent = Math.round( state.volume * 100 );
+
+  ctx.fillStyle = '#fff';
+  ctx.textAlign = 'center';
+
+  ctx.font = 'bold 40px sans-serif';
+  ctx.fillText( 'Opciones', w / 2, h / 2 - 80 );
+
+  ctx.font = '24px sans-serif';
+  ctx.fillText( `< Volumen: ${ volumePercent }% >`, w / 2, h / 2 );
+
+  ctx.font = '18px sans-serif';
+  ctx.fillText( 'Flechas: ajustar   Enter/Esc: volver', w / 2, h / 2 + 60 );
 }
 
 function renderPaddle( ctx, state ) {
@@ -106,6 +124,9 @@ function renderPauseOverlay( ctx ) {
   ctx.textAlign = 'center';
   ctx.font = 'bold 40px sans-serif';
   ctx.fillText( 'Pausa', w / 2, h / 2 );
+
+  ctx.font = '18px sans-serif';
+  ctx.fillText( 'O: Opciones', w / 2, h / 2 + 40 );
 }
 
 export function render( ctx, state ) {
@@ -113,6 +134,8 @@ export function render( ctx, state ) {
 
   if ( state.screen === 'menu' ) {
     renderMenu( ctx, state );
+  } else if ( state.screen === 'options' ) {
+    renderOptions( ctx, state );
   } else if ( state.screen === 'playing' || state.screen === 'paused' ) {
     renderBlocks( ctx, state );
     renderPaddle( ctx, state );

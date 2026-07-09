@@ -1,8 +1,5 @@
 Futuras freatures
 
---colocar favicon
---cambiar animación de selector de niveles para que haga un pequeño zoom cuando resalten y vuelvan a la normalidad cuando son deseleccionado
---añadir un pequeño input lag al selector de niveles
 --selección de volumen (debe persistir en storage)
 --selector de velocidad de la pelota (storage)
 --selector de dificultad
