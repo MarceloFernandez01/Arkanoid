@@ -6,14 +6,55 @@ export const CONFIG = {
   colors: [ 'red', 'yellow', 'cyan', 'magenta', 'hotpink', 'green' ],
 };
 
-function generateBlocks() {
-  const { rows, cols, blockW, blockH, gap, marginTop } = CONFIG.grid;
+export const LEVELS = [
+  {
+    id: 1,
+    name: 'Nivel 1',
+    pattern: [
+      'XXXXXXXXX',
+      'XXXXXXXXX',
+      'XXXXXXXXX',
+      'XXXXXXXXX',
+      'XXXXXXXXX',
+    ],
+  },
+  {
+    id: 2,
+    name: 'Nivel 2',
+    pattern: [
+      'XXXXXXXXX',
+      '.XXXXXXX.',
+      '..XXXXX..',
+      '...XXX...',
+      '....X....',
+    ],
+  },
+  {
+    id: 3,
+    name: 'Nivel 3',
+    pattern: [
+      '.XXXXXXX.',
+      'XXXXXXXXX',
+      'XX.XXX.XX',
+      'XX.XXX.XX',
+      'XXXXXXXXX',
+      '.XX.X.XX.',
+      '.XX.X.XX.',
+    ],
+  },
+];
+
+export function generateBlocks( levelId ) {
+  const { cols, blockW, blockH, gap, marginTop } = CONFIG.grid;
   const gridW = cols * blockW + ( cols - 1 ) * gap;
   const marginX = ( CONFIG.canvas.w - gridW ) / 2;
+  const pattern = LEVELS[ levelId - 1 ].pattern;
   const blocks = [];
 
-  for ( let row = 0; row < rows; row++ ) {
+  for ( let row = 0; row < pattern.length; row++ ) {
     for ( let col = 0; col < cols; col++ ) {
+      if ( pattern[ row ][ col ] !== 'X' ) continue;
+
       blocks.push( {
         row,
         col,
@@ -33,7 +74,9 @@ function generateBlocks() {
 }
 
 export const state = {
-  screen: 'menu', // 'menu' | 'playing' | 'paused' | 'gameover' | 'win'
+  screen: 'menu', // 'menu' | 'playing' | 'paused' | 'levelComplete' | 'gameover' | 'win'
+  currentLevel: 1,
+  menuSelection: 0,
   score: 0,
   lives: 3,
   paddle: {
@@ -52,12 +95,14 @@ export const state = {
     vy: -CONFIG.ball.speed,
     attached: true,
   },
-  blocks: generateBlocks(),
+  blocks: generateBlocks( 1 ),
   blockAnimations: [],
 };
 
 export function resetGame() {
   state.screen = 'menu';
+  state.currentLevel = 1;
+  state.menuSelection = 0;
   state.score = 0;
   state.lives = 3;
   state.paddle.x = ( CONFIG.canvas.w - state.paddle.w ) / 2;
@@ -66,6 +111,6 @@ export function resetGame() {
   state.ball.vx = CONFIG.ball.speed;
   state.ball.vy = -CONFIG.ball.speed;
   state.ball.attached = true;
-  state.blocks = generateBlocks();
+  state.blocks = generateBlocks( state.currentLevel );
   state.blockAnimations = [];
 }

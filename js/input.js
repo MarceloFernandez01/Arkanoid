@@ -1,13 +1,34 @@
-import { state, CONFIG } from './state.js';
+import { state, CONFIG, LEVELS, generateBlocks } from './state.js';
 
 const keys = {};
+
+function startLevel( levelId ) {
+  state.currentLevel = levelId;
+  state.score = 0;
+  state.lives = 3;
+  state.blocks = generateBlocks( levelId );
+  state.blockAnimations = [];
+  state.paddle.x = ( CONFIG.canvas.w - state.paddle.w ) / 2;
+  state.ball.x = CONFIG.canvas.w / 2 - state.ball.w / 2;
+  state.ball.y = CONFIG.canvas.h - CONFIG.paddle.marginBottom - state.ball.h;
+  state.ball.vx = CONFIG.ball.speed;
+  state.ball.vy = -CONFIG.ball.speed;
+  state.ball.attached = true;
+  state.screen = 'playing';
+}
 
 export function setupInput( canvas ) {
   window.addEventListener( 'keydown', ( e ) => {
     keys[ e.code ] = true;
 
-    if ( e.code === 'Space' && state.screen === 'menu' ) {
-      state.screen = 'playing';
+    if ( state.screen === 'menu' ) {
+      if ( e.code === 'ArrowUp' ) {
+        state.menuSelection = ( state.menuSelection - 1 + LEVELS.length ) % LEVELS.length;
+      } else if ( e.code === 'ArrowDown' ) {
+        state.menuSelection = ( state.menuSelection + 1 ) % LEVELS.length;
+      } else if ( e.code === 'Space' || e.code === 'Enter' ) {
+        startLevel( state.menuSelection + 1 );
+      }
     } else if (
       ( e.code === 'Space' || e.code === 'Enter' ) &&
       state.screen === 'playing' &&
@@ -29,12 +50,6 @@ export function setupInput( canvas ) {
 
   window.addEventListener( 'keyup', ( e ) => {
     keys[ e.code ] = false;
-  } );
-
-  canvas.addEventListener( 'click', () => {
-    if ( state.screen === 'menu' ) {
-      state.screen = 'playing';
-    }
   } );
 }
 

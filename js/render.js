@@ -1,16 +1,23 @@
-import { CONFIG } from './state.js';
+import { CONFIG, LEVELS } from './state.js';
 
-function renderMenu( ctx ) {
+function renderMenu( ctx, state ) {
   const { w, h } = CONFIG.canvas;
 
   ctx.fillStyle = '#fff';
   ctx.textAlign = 'center';
 
   ctx.font = 'bold 48px sans-serif';
-  ctx.fillText( 'ARKANOID', w / 2, h / 2 - 40 );
+  ctx.fillText( 'ARKANOID', w / 2, h / 2 - 80 );
 
   ctx.font = '24px sans-serif';
-  ctx.fillText( 'Jugar', w / 2, h / 2 + 20 );
+
+  LEVELS.forEach( ( level, i ) => {
+    const y = h / 2 + i * 40;
+    const selected = i === state.menuSelection;
+
+    ctx.fillStyle = selected ? '#ffde00' : '#fff';
+    ctx.fillText( selected ? `> ${ level.name } <` : level.name, w / 2, y );
+  } );
 }
 
 function renderPaddle( ctx, state ) {
@@ -64,6 +71,16 @@ function renderGameOver( ctx ) {
   ctx.fillText( 'GAME OVER', w / 2, h / 2 );
 }
 
+function renderLevelComplete( ctx, state ) {
+  const { w, h } = CONFIG.canvas;
+
+  ctx.fillStyle = '#fff';
+  ctx.textAlign = 'center';
+
+  ctx.font = 'bold 40px sans-serif';
+  ctx.fillText( `¡Nivel ${ state.currentLevel } completado!`, w / 2, h / 2 );
+}
+
 function renderWin( ctx ) {
   const { w, h } = CONFIG.canvas;
 
@@ -90,7 +107,7 @@ export function render( ctx, state ) {
   ctx.clearRect( 0, 0, CONFIG.canvas.w, CONFIG.canvas.h );
 
   if ( state.screen === 'menu' ) {
-    renderMenu( ctx );
+    renderMenu( ctx, state );
   } else if ( state.screen === 'playing' || state.screen === 'paused' ) {
     renderBlocks( ctx, state );
     renderPaddle( ctx, state );
@@ -100,6 +117,8 @@ export function render( ctx, state ) {
     if ( state.screen === 'paused' ) {
       renderPauseOverlay( ctx );
     }
+  } else if ( state.screen === 'levelComplete' ) {
+    renderLevelComplete( ctx, state );
   } else if ( state.screen === 'gameover' ) {
     renderGameOver( ctx );
   } else if ( state.screen === 'win' ) {

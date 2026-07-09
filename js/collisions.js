@@ -86,7 +86,7 @@ function updateBlocks( ball ) {
       playSound( 'break' );
 
       if ( state.blocks.every( ( b ) => b.broken ) ) {
-        state.screen = 'win';
+        state.screen = state.currentLevel < 3 ? 'levelComplete' : 'win';
       }
     } else if ( block.hits === 1 ) {
       startBlockAnimation( block, -1, 1, false );
