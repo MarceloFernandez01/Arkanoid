@@ -38,4 +38,16 @@ También funciona con la extensión "Live Server" de VSCode o `npx serve`.
 
 ## Alcance actual
 
-3 niveles jugables en progresión (pirámide normal, pirámide invertida y calavera), 3 vidas por nivel, con sonido de rebote/rotura y sin power-ups. Los bloques muestran daño progresivo y una animación de explosión al destruirse. El detalle completo del alcance y las decisiones de diseño está en `specs/01-arkanoid-mvp.md`, `specs/02-block-destruction-animation.md`, `specs/03-block-damage-frames-adjustment.md`, `specs/04-sound-effects.md` y `specs/05-level-selection-and-progression.md`.
+- 3 niveles jugables en progresión (pirámide normal, pirámide invertida y calavera), 3 vidas por nivel, sin power-ups.
+- Menú principal ("Jugar"/"Opciones"), selección de nivel, pausa y opciones con navegación por teclado y barra de volumen.
+- Bloques con daño progresivo y animación de explosión al destruirse.
+- Sonido de rebote de bola y de rotura de bloques.
+
+El detalle completo del alcance y las decisiones de diseño está en las specs de `specs/`:
+
+- `01-arkanoid-mvp.md`
+- `02-block-destruction-animation.md`
+- `03-block-damage-frames-adjustment.md`
+- `04-sound-effects.md`
+- `05-level-selection-and-progression.md`
+- `06-menu-navigation-and-volume-bar.md`
