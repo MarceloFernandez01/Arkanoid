@@ -30,12 +30,21 @@ function renderBlocks( ctx, state ) {
   }
 }
 
+const LIFE_ICON_SIZE = 20;
+const LIFE_ICON_GAP = 8;
+
 function renderHUD( ctx, state ) {
+  const { w } = CONFIG.canvas;
+
   ctx.fillStyle = '#fff';
-  ctx.textAlign = 'left';
   ctx.font = '20px sans-serif';
+  ctx.textAlign = 'left';
   ctx.fillText( `Score: ${ state.score }`, 10, 30 );
-  ctx.fillText( `Vidas: ${ state.lives }`, 10, 55 );
+
+  for ( let i = 0; i < state.lives; i++ ) {
+    const x = w - 10 - ( i + 1 ) * LIFE_ICON_SIZE - i * LIFE_ICON_GAP;
+    drawSprite( ctx, 'ball', x, 10, LIFE_ICON_SIZE, LIFE_ICON_SIZE );
+  }
 }
 
 function renderGameOver( ctx ) {
