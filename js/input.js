@@ -1,4 +1,4 @@
-import { state, CONFIG, generateBlocks, resetGame, resetMenu, menuItemCount } from './state.js';
+import { state, CONFIG, generateBlocks, resetGame, resetMenu, menuItemCount, saveVolume } from './state.js';
 import { LEVELS } from './levels.js';
 
 const keys = {};
@@ -63,6 +63,7 @@ export function setupInput( canvas ) {
         const dir = e.code === 'ArrowLeft' ? -1 : 1;
 
         state.volume = Math.max( 0, Math.min( 1, state.volume + dir * VOLUME_STEP ) );
+        saveVolume( state.volume );
       } else if ( e.code === 'Escape' || ( ( e.code === 'Enter' || e.code === 'Space' ) && state.menuSelection === 1 ) ) {
         goToMenu( state.optionsReturnScreen );
       }

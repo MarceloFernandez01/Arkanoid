@@ -37,12 +37,24 @@ export function generateBlocks( levelId ) {
   return blocks;
 }
 
+const VOLUME_STORAGE_KEY = 'arkanoid-volume';
+
+function loadVolume() {
+  const stored = parseFloat( localStorage.getItem( VOLUME_STORAGE_KEY ) );
+
+  return Number.isFinite( stored ) ? Math.max( 0, Math.min( 1, stored ) ) : 1;
+}
+
+export function saveVolume( volume ) {
+  localStorage.setItem( VOLUME_STORAGE_KEY, String( volume ) );
+}
+
 export const state = {
   screen: 'menu', // 'menu' | 'levelSelect' | 'playing' | 'paused' | 'options' | 'levelComplete' | 'gameover' | 'win'
   currentLevel: 1,
   menuSelection: 0,
   optionsReturnScreen: 'menu',
-  volume: 1,
+  volume: loadVolume(),
   score: 0,
   lives: 3,
   paddle: {
