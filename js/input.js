@@ -15,6 +15,11 @@ function goToMenu( screen ) {
   resetMenu( menuItemCount( screen ) );
 }
 
+function goToDifficultySelect() {
+  goToMenu( 'difficultySelect' );
+  state.menuSelection = DIFFICULTIES.findIndex( ( d ) => d.id === state.difficulty );
+}
+
 function startLevel( levelId ) {
   state.currentLevel = levelId;
   state.score = 0;
@@ -43,9 +48,7 @@ export function setupInput( canvas ) {
     } else if ( state.screen === 'menu' ) {
       if ( e.code === 'Space' || e.code === 'Enter' ) {
         if ( state.menuSelection === 0 ) {
-          state.screen = 'difficultySelect';
-          resetMenu( menuItemCount( 'difficultySelect' ) );
-          state.menuSelection = DIFFICULTIES.findIndex( ( d ) => d.id === state.difficulty );
+          goToDifficultySelect();
         } else {
           state.optionsReturnScreen = 'menu';
           goToMenu( 'options' );
@@ -67,10 +70,10 @@ export function setupInput( canvas ) {
         if ( state.menuSelection < LEVELS.length ) {
           startLevel( state.menuSelection + 1 );
         } else {
-          goToMenu( 'difficultySelect' );
+          goToDifficultySelect();
         }
       } else if ( e.code === 'Escape' ) {
-        goToMenu( 'difficultySelect' );
+        goToDifficultySelect();
       }
     } else if ( state.screen === 'options' ) {
       if ( ( e.code === 'ArrowLeft' || e.code === 'ArrowRight' ) && state.menuSelection === 0 ) {

@@ -1,4 +1,4 @@
-import { state, CONFIG, resetGame, generateBlocks, getDifficulty } from './state.js';
+import { state, CONFIG, resetGame, generateBlocks, getDifficulty, resetMenu, menuItemCount } from './state.js';
 import { render } from './render.js';
 import { setupInput, updatePaddle, updateMenu } from './input.js';
 import { updateBall, updateBlockAnimations } from './collisions.js';
@@ -15,7 +15,9 @@ let levelCompleteTimer = 0;
 
 function goToNextLevel() {
   state.currentLevel++;
-  state.lives = 3;
+
+  if ( getDifficulty().resetLivesOnProgress ) state.lives = 3;
+
   state.blocks = generateBlocks( state.currentLevel );
   state.blockAnimations = [];
   state.paddle.x = ( CONFIG.canvas.w - state.paddle.w ) / 2;
@@ -34,11 +36,18 @@ function update( dt ) {
   updateBlockAnimations( dt );
 
   if ( state.screen === 'gameover' || state.screen === 'win' ) {
+    const wasGameOver = state.screen === 'gameover';
+
     endScreenTimer += dt;
 
     if ( endScreenTimer >= END_SCREEN_DELAY ) {
       endScreenTimer = 0;
       resetGame();
+
+      if ( wasGameOver ) {
+        state.screen = 'levelSelect';
+        resetMenu( menuItemCount( 'levelSelect' ) );
+      }
     }
   } else {
     endScreenTimer = 0;
