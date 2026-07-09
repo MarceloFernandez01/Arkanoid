@@ -1,6 +1,6 @@
 # SPEC 02 — Animación de destrucción de bloques
 
-> **Status:** Aprobado
+> **Status:** Implementado
 > **Depends on:** SPEC 01
 > **Date:** 2026-07-08
 > **Objective:** Animar los bloques con sus frames de grieta progresivos en cada golpe y una animación de explosión final al romperse, reutilizando `EXPLOSION_FRAMES` de `assets/spritesheet.js`.
@@ -70,7 +70,7 @@ Conventions:
 - [x] Al recibir el segundo golpe, el bloque anima desde `EXPLOSION_FRAMES[color][0]` hasta `EXPLOSION_FRAMES[color][1]` en 150 ms y queda asentado en ese frame.
 - [x] Al recibir el tercer golpe, el bloque deja de colisionar inmediatamente (`broken = true`) y anima desde `EXPLOSION_FRAMES[color][1]` hasta `EXPLOSION_FRAMES[color][3]` (pasando por el frame 2) en 150 ms.
 - [x] Al terminar la animación del tercer golpe, el bloque deja de dibujarse por completo.
-- [ ] Un bloque de color `gray` se rompe correctamente con su animación de grieta y explosión, igual que el resto de los colores.
+- [x] Un bloque de color `gray` se rompe correctamente con su animación de grieta y explosión, igual que el resto de los colores.
 - [x] El score sigue sumando exactamente igual que en el MVP (+10 por golpe, +100 adicional al romperse).
 - [x] Si un bloque recibe un nuevo golpe mientras su animación anterior aún está en curso, la animación previa se reemplaza por la nueva sin quedar en un estado inconsistente.
 - [x] Varios bloques pueden animarse en simultáneo sin interferir entre sí.
