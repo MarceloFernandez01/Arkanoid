@@ -1,5 +1,6 @@
 import { state, CONFIG } from './state.js';
 import { playSound } from './sound.js';
+import { LEVELS } from './levels.js';
 
 const MAX_BOUNCE_ANGLE = 75 * ( Math.PI / 180 );
 
@@ -86,7 +87,7 @@ function updateBlocks( ball ) {
       playSound( 'break' );
 
       if ( state.blocks.every( ( b ) => b.broken ) ) {
-        state.screen = state.currentLevel < 3 ? 'levelComplete' : 'win';
+        state.screen = state.currentLevel < LEVELS.length ? 'levelComplete' : 'win';
       }
     } else if ( block.hits === 1 ) {
       startBlockAnimation( block, -1, 1, false );

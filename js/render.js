@@ -1,4 +1,5 @@
-import { CONFIG, LEVELS } from './state.js';
+import { CONFIG } from './state.js';
+import { LEVELS } from './levels.js';
 
 function renderSelectableList( ctx, state, items, centerY, lineHeight = 40 ) {
   const { w } = CONFIG.canvas;

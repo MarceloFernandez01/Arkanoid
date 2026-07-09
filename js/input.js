@@ -1,4 +1,5 @@
-import { state, CONFIG, LEVELS, generateBlocks, resetGame, resetMenu, menuItemCount } from './state.js';
+import { state, CONFIG, generateBlocks, resetGame, resetMenu, menuItemCount } from './state.js';
+import { LEVELS } from './levels.js';
 
 const keys = {};
 

@@ -1,3 +1,5 @@
+import { LEVELS } from './levels.js';
+
 export const CONFIG = {
   canvas: { w: 1000, h: 800 },
   paddle: { w: 162, h: 14, marginBottom: 40, speed: 500 },
@@ -5,44 +7,6 @@ export const CONFIG = {
   grid: { rows: 5, cols: 9, blockW: 60, blockH: 30, gap: 10, marginTop: 60 },
   colors: [ 'red', 'yellow', 'cyan', 'magenta', 'hotpink', 'green' ],
 };
-
-export const LEVELS = [
-  {
-    id: 1,
-    name: 'Nivel 1',
-    pattern: [
-      'XXXXXXXXX',
-      'XXXXXXXXX',
-      'XXXXXXXXX',
-      'XXXXXXXXX',
-      'XXXXXXXXX',
-    ],
-  },
-  {
-    id: 2,
-    name: 'Nivel 2',
-    pattern: [
-      'XXXXXXXXX',
-      '.XXXXXXX.',
-      '..XXXXX..',
-      '...XXX...',
-      '....X....',
-    ],
-  },
-  {
-    id: 3,
-    name: 'Nivel 3',
-    pattern: [
-      '.XXXXXXX.',
-      'XXXXXXXXX',
-      'XX.XXX.XX',
-      'XX.XXX.XX',
-      'XXXXXXXXX',
-      '.XX.X.XX.',
-      '.XX.X.XX.',
-    ],
-  },
-];
 
 export function generateBlocks( levelId ) {
   const { cols, blockW, blockH, gap, marginTop } = CONFIG.grid;
