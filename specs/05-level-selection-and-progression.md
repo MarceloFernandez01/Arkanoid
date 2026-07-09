@@ -1,6 +1,6 @@
 # SPEC 05 — Selección de nivel y progresión (pirámide invertida y calavera)
 
-> **Status:** Aprobado
+> **Status:** Implementado
 > **Depends on:** SPEC 01, SPEC 02, SPEC 03, SPEC 04
 > **Date:** 2026-07-09
 > **Objective:** Agregar los niveles 2 (pirámide invertida) y 3 (calavera), seleccionables por teclado desde un menú de selección de nivel, con progresión automática entre niveles que conserva el puntaje y reinicia las vidas.
@@ -130,23 +130,23 @@ Conventions:
 
 ## Acceptance criteria
 
-- [ ] El menú inicial muestra 3 opciones: "Nivel 1", "Nivel 2", "Nivel 3".
-- [ ] Las flechas arriba/abajo mueven visualmente la selección entre las 3 opciones del menú.
-- [ ] Presionar Enter o Espacio en el menú inicia el nivel resaltado.
-- [ ] El Nivel 1 se ve y comporta exactamente igual que antes de esta spec (grilla completa 9x5).
-- [ ] El Nivel 2 muestra el patrón de pirámide invertida (9x5) exacto especificado.
-- [ ] El Nivel 3 muestra el patrón de calavera (9x7) exacto especificado.
-- [ ] Las celdas vacías del patrón de los niveles 2 y 3 no generan bloques ni colisionan con la bola.
-- [ ] Los 3 niveles usan las mismas reglas de bloque: 3 golpes de resistencia, mismos 6 colores, misma animación de rotura y mismo sonido.
-- [ ] Al elegir cualquier nivel directamente desde el menú, el score arranca en 0 y las vidas en 3.
-- [ ] Al romper todos los bloques del Nivel 1, se muestra "¡Nivel 1 completado!" durante 3 segundos y luego continúa automáticamente al Nivel 2.
-- [ ] Al romper todos los bloques del Nivel 2, se muestra "¡Nivel 2 completado!" durante 3 segundos y luego continúa automáticamente al Nivel 3.
-- [ ] Al pasar de un nivel a otro por progresión (1→2 o 2→3), el score se conserva y las vidas se reinician a 3.
-- [ ] Al romper todos los bloques del Nivel 3, se muestra la pantalla de victoria final ("¡Felicitaciones, ganaste!"), no la pantalla de "Nivel completado".
-- [ ] Perder todas las vidas en cualquier nivel (1, 2 o 3) muestra Game Over y luego vuelve al menú de selección de nivel.
-- [ ] La pausa (tecla P/Escape) sigue funcionando igual en los 3 niveles.
-- [ ] No se agregó ninguna dependencia externa ni soporte de mouse/touch.
-- [ ] El juego sigue cargando sin errores en la consola.
+- [x] El menú inicial muestra 3 opciones: "Nivel 1", "Nivel 2", "Nivel 3".
+- [x] Las flechas arriba/abajo mueven visualmente la selección entre las 3 opciones del menú.
+- [x] Presionar Enter o Espacio en el menú inicia el nivel resaltado.
+- [x] El Nivel 1 se ve y comporta exactamente igual que antes de esta spec (grilla completa 9x5).
+- [x] El Nivel 2 muestra el patrón de pirámide invertida (9x5) exacto especificado.
+- [x] El Nivel 3 muestra el patrón de calavera (9x7) exacto especificado.
+- [x] Las celdas vacías del patrón de los niveles 2 y 3 no generan bloques ni colisionan con la bola.
+- [x] Los 3 niveles usan las mismas reglas de bloque: 3 golpes de resistencia, mismos 6 colores, misma animación de rotura y mismo sonido.
+- [x] Al elegir cualquier nivel directamente desde el menú, el score arranca en 0 y las vidas en 3.
+- [x] Al romper todos los bloques del Nivel 1, se muestra "¡Nivel 1 completado!" durante 3 segundos y luego continúa automáticamente al Nivel 2.
+- [x] Al romper todos los bloques del Nivel 2, se muestra "¡Nivel 2 completado!" durante 3 segundos y luego continúa automáticamente al Nivel 3.
+- [x] Al pasar de un nivel a otro por progresión (1→2 o 2→3), el score se conserva y las vidas se reinician a 3.
+- [x] Al romper todos los bloques del Nivel 3, se muestra la pantalla de victoria final ("¡Felicitaciones, ganaste!"), no la pantalla de "Nivel completado".
+- [x] Perder todas las vidas en cualquier nivel (1, 2 o 3) muestra Game Over y luego vuelve al menú de selección de nivel.
+- [x] La pausa (tecla P/Escape) sigue funcionando igual en los 3 niveles.
+- [x] No se agregó ninguna dependencia externa ni soporte de mouse/touch.
+- [x] El juego sigue cargando sin errores en la consola.
 
 ---
 
