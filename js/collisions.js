@@ -1,4 +1,4 @@
-import { state, CONFIG } from './state.js';
+import { state, CONFIG, getDifficulty } from './state.js';
 import { playSound } from './sound.js';
 import { LEVELS } from './levels.js';
 
@@ -53,8 +53,8 @@ function resetRound() {
 
   paddle.x = ( CONFIG.canvas.w - paddle.w ) / 2;
 
-  ball.vx = CONFIG.ball.speed;
-  ball.vy = -CONFIG.ball.speed;
+  ball.vx = getDifficulty().ballSpeed;
+  ball.vy = -getDifficulty().ballSpeed;
   ball.attached = true;
 }
 
@@ -71,6 +71,8 @@ function startBlockAnimation( block, fromFrame, toFrame, removeOnEnd ) {
 }
 
 function updateBlocks( ball ) {
+  const { blockHits } = getDifficulty();
+
   for ( const block of state.blocks ) {
     if ( block.broken ) continue;
     if ( !checkBlockCollision( ball, block ) ) continue;
@@ -80,10 +82,10 @@ function updateBlocks( ball ) {
     block.hits++;
     state.score += 10;
 
-    if ( block.hits >= 3 ) {
+    if ( block.hits >= blockHits ) {
       block.broken = true;
       state.score += 100;
-      startBlockAnimation( block, 4, 10, true );
+      startBlockAnimation( block, blockHits === 1 ? -1 : 4, 10, true );
       playSound( 'break' );
 
       if ( state.blocks.every( ( b ) => b.broken ) ) {

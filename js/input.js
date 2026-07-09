@@ -1,5 +1,6 @@
-import { state, CONFIG, generateBlocks, resetGame, resetMenu, menuItemCount, saveVolume } from './state.js';
+import { state, CONFIG, generateBlocks, resetGame, resetMenu, menuItemCount, saveVolume, getDifficulty } from './state.js';
 import { LEVELS } from './levels.js';
+import { DIFFICULTIES } from './difficulties.js';
 
 const keys = {};
 
@@ -7,7 +8,7 @@ const MENU_SELECTED_SCALE = 1.18;
 const MENU_ZOOM_SPEED = 12;
 const MENU_INPUT_LAG = 0.15;
 const VOLUME_STEP = 0.1;
-const MENU_SCREENS = [ 'menu', 'levelSelect', 'options', 'paused' ];
+const MENU_SCREENS = [ 'menu', 'difficultySelect', 'levelSelect', 'options', 'paused' ];
 
 function goToMenu( screen ) {
   state.screen = screen;
@@ -23,8 +24,8 @@ function startLevel( levelId ) {
   state.paddle.x = ( CONFIG.canvas.w - state.paddle.w ) / 2;
   state.ball.x = CONFIG.canvas.w / 2 - state.ball.w / 2;
   state.ball.y = CONFIG.canvas.h - CONFIG.paddle.marginBottom - state.ball.h;
-  state.ball.vx = CONFIG.ball.speed;
-  state.ball.vy = -CONFIG.ball.speed;
+  state.ball.vx = getDifficulty().ballSpeed;
+  state.ball.vy = -getDifficulty().ballSpeed;
   state.ball.attached = true;
   state.screen = 'playing';
 }
@@ -42,21 +43,34 @@ export function setupInput( canvas ) {
     } else if ( state.screen === 'menu' ) {
       if ( e.code === 'Space' || e.code === 'Enter' ) {
         if ( state.menuSelection === 0 ) {
-          goToMenu( 'levelSelect' );
+          state.screen = 'difficultySelect';
+          resetMenu( menuItemCount( 'difficultySelect' ) );
+          state.menuSelection = DIFFICULTIES.findIndex( ( d ) => d.id === state.difficulty );
         } else {
           state.optionsReturnScreen = 'menu';
           goToMenu( 'options' );
         }
+      }
+    } else if ( state.screen === 'difficultySelect' ) {
+      if ( e.code === 'Space' || e.code === 'Enter' ) {
+        if ( state.menuSelection < DIFFICULTIES.length ) {
+          state.difficulty = DIFFICULTIES[ state.menuSelection ].id;
+          goToMenu( 'levelSelect' );
+        } else {
+          goToMenu( 'menu' );
+        }
+      } else if ( e.code === 'Escape' ) {
+        goToMenu( 'menu' );
       }
     } else if ( state.screen === 'levelSelect' ) {
       if ( e.code === 'Space' || e.code === 'Enter' ) {
         if ( state.menuSelection < LEVELS.length ) {
           startLevel( state.menuSelection + 1 );
         } else {
-          goToMenu( 'menu' );
+          goToMenu( 'difficultySelect' );
         }
       } else if ( e.code === 'Escape' ) {
-        goToMenu( 'menu' );
+        goToMenu( 'difficultySelect' );
       }
     } else if ( state.screen === 'options' ) {
       if ( ( e.code === 'ArrowLeft' || e.code === 'ArrowRight' ) && state.menuSelection === 0 ) {
@@ -70,8 +84,8 @@ export function setupInput( canvas ) {
     } else if ( state.screen === 'playing' ) {
       if ( ( e.code === 'Space' || e.code === 'Enter' ) && state.ball.attached ) {
         state.ball.attached = false;
-        state.ball.vx = CONFIG.ball.speed;
-        state.ball.vy = -CONFIG.ball.speed;
+        state.ball.vx = getDifficulty().ballSpeed;
+        state.ball.vy = -getDifficulty().ballSpeed;
       } else if ( e.code === 'KeyP' || e.code === 'Escape' ) {
         goToMenu( 'paused' );
       }

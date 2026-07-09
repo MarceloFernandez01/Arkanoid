@@ -1,4 +1,5 @@
 import { LEVELS } from './levels.js';
+import { DIFFICULTIES } from './difficulties.js';
 
 export const CONFIG = {
   canvas: { w: 1000, h: 800 },
@@ -50,8 +51,9 @@ export function saveVolume( volume ) {
 }
 
 export const state = {
-  screen: 'menu', // 'menu' | 'levelSelect' | 'playing' | 'paused' | 'options' | 'levelComplete' | 'gameover' | 'win'
+  screen: 'menu', // 'menu' | 'difficultySelect' | 'levelSelect' | 'playing' | 'paused' | 'options' | 'levelComplete' | 'gameover' | 'win'
   currentLevel: 1,
+  difficulty: 'normal', // 'easy' | 'normal' | 'hard' — vive en memoria, no persiste
   menuSelection: 0,
   optionsReturnScreen: 'menu',
   volume: loadVolume(),
@@ -69,8 +71,8 @@ export const state = {
     y: CONFIG.canvas.h - CONFIG.paddle.marginBottom - CONFIG.ball.h,
     w: CONFIG.ball.w,
     h: CONFIG.ball.h,
-    vx: CONFIG.ball.speed,
-    vy: -CONFIG.ball.speed,
+    vx: 0,
+    vy: 0,
     attached: true,
   },
   blocks: generateBlocks( 1 ),
@@ -79,9 +81,17 @@ export const state = {
   menuInputCooldown: 0,
 };
 
+export function getDifficulty() {
+  return DIFFICULTIES.find( ( d ) => d.id === state.difficulty );
+}
+
+state.ball.vx = getDifficulty().ballSpeed;
+state.ball.vy = -getDifficulty().ballSpeed;
+
 export function menuItemCount( screen ) {
   switch ( screen ) {
     case 'menu': return 2; // Jugar, Opciones
+    case 'difficultySelect': return 4; // Fácil, Normal, Difícil, Volver
     case 'levelSelect': return LEVELS.length + 1; // niveles + Volver
     case 'options': return 2; // Volumen, Volver
     case 'paused': return 3; // Continuar, Opciones, Salir
@@ -103,8 +113,8 @@ export function resetGame() {
   state.paddle.x = ( CONFIG.canvas.w - state.paddle.w ) / 2;
   state.ball.x = CONFIG.canvas.w / 2 - state.ball.w / 2;
   state.ball.y = CONFIG.canvas.h - CONFIG.paddle.marginBottom - state.ball.h;
-  state.ball.vx = CONFIG.ball.speed;
-  state.ball.vy = -CONFIG.ball.speed;
+  state.ball.vx = getDifficulty().ballSpeed;
+  state.ball.vy = -getDifficulty().ballSpeed;
   state.ball.attached = true;
   state.blocks = generateBlocks( state.currentLevel );
   state.blockAnimations = [];

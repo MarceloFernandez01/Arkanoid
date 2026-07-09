@@ -1,4 +1,4 @@
-import { state, CONFIG, resetGame, generateBlocks } from './state.js';
+import { state, CONFIG, resetGame, generateBlocks, getDifficulty } from './state.js';
 import { render } from './render.js';
 import { setupInput, updatePaddle, updateMenu } from './input.js';
 import { updateBall, updateBlockAnimations } from './collisions.js';
@@ -21,8 +21,8 @@ function goToNextLevel() {
   state.paddle.x = ( CONFIG.canvas.w - state.paddle.w ) / 2;
   state.ball.x = CONFIG.canvas.w / 2 - state.ball.w / 2;
   state.ball.y = CONFIG.canvas.h - CONFIG.paddle.marginBottom - state.ball.h;
-  state.ball.vx = CONFIG.ball.speed;
-  state.ball.vy = -CONFIG.ball.speed;
+  state.ball.vx = getDifficulty().ballSpeed;
+  state.ball.vy = -getDifficulty().ballSpeed;
   state.ball.attached = true;
   state.screen = 'playing';
 }

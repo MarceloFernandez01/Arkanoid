@@ -1,5 +1,6 @@
 import { CONFIG } from './state.js';
 import { LEVELS } from './levels.js';
+import { DIFFICULTIES } from './difficulties.js';
 
 function renderSelectableList( ctx, state, items, centerY, lineHeight = 40 ) {
   const { w } = CONFIG.canvas;
@@ -30,6 +31,19 @@ function renderMenu( ctx, state ) {
   ctx.fillText( 'ARKANOID', w / 2, h / 2 - 80 );
 
   renderSelectableList( ctx, state, [ 'Jugar', 'Opciones' ], h / 2 );
+}
+
+function renderDifficultySelect( ctx, state ) {
+  const { w, h } = CONFIG.canvas;
+  const items = DIFFICULTIES.map( ( difficulty ) => difficulty.name ).concat( 'Volver' );
+
+  ctx.fillStyle = '#fff';
+  ctx.textAlign = 'center';
+
+  ctx.font = 'bold 40px sans-serif';
+  ctx.fillText( 'Selecciona la dificultad', w / 2, h / 2 - 100 );
+
+  renderSelectableList( ctx, state, items, h / 2 - 20 );
 }
 
 function renderLevelSelect( ctx, state ) {
@@ -165,6 +179,8 @@ export function render( ctx, state ) {
 
   if ( state.screen === 'menu' ) {
     renderMenu( ctx, state );
+  } else if ( state.screen === 'difficultySelect' ) {
+    renderDifficultySelect( ctx, state );
   } else if ( state.screen === 'levelSelect' ) {
     renderLevelSelect( ctx, state );
   } else if ( state.screen === 'options' ) {
