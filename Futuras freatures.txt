@@ -7,3 +7,5 @@ Futuras freatures
 	*Normal = Funciona como siempre (las vidas se reinician al cambiar de nivel, los bloques dura 3 golpes)
 	*Difícil = la bola va un poco más rápido, las vidas ya no se reinician cuando se cambia de nivel
 --implementar nuevamente el bloque gris, con la particularidad de que sea indestructible (se puede invocar con *)
+
+corregir deuda tecnica: las variables de niveles debenm ir en otro js

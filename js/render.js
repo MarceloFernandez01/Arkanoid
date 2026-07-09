@@ -1,19 +1,12 @@
 import { CONFIG, LEVELS } from './state.js';
 
-function renderMenu( ctx, state ) {
-  const { w, h } = CONFIG.canvas;
-  const items = LEVELS.map( ( level ) => level.name ).concat( 'Opciones' );
-
-  ctx.fillStyle = '#fff';
-  ctx.textAlign = 'center';
-
-  ctx.font = 'bold 48px sans-serif';
-  ctx.fillText( 'ARKANOID', w / 2, h / 2 - 80 );
+function renderSelectableList( ctx, state, items, centerY, lineHeight = 40 ) {
+  const { w } = CONFIG.canvas;
 
   ctx.font = '24px sans-serif';
 
   items.forEach( ( label, i ) => {
-    const y = h / 2 + i * 40;
+    const y = centerY + i * lineHeight;
     const selected = i === state.menuSelection;
     const scale = state.menuScales[ i ];
 
@@ -26,21 +19,59 @@ function renderMenu( ctx, state ) {
   } );
 }
 
-function renderOptions( ctx, state ) {
+function renderMenu( ctx, state ) {
   const { w, h } = CONFIG.canvas;
-  const volumePercent = Math.round( state.volume * 100 );
+
+  ctx.fillStyle = '#fff';
+  ctx.textAlign = 'center';
+
+  ctx.font = 'bold 48px sans-serif';
+  ctx.fillText( 'ARKANOID', w / 2, h / 2 - 80 );
+
+  renderSelectableList( ctx, state, [ 'Jugar', 'Opciones' ], h / 2 );
+}
+
+function renderLevelSelect( ctx, state ) {
+  const { w, h } = CONFIG.canvas;
+  const items = LEVELS.map( ( level ) => level.name ).concat( 'Volver' );
 
   ctx.fillStyle = '#fff';
   ctx.textAlign = 'center';
 
   ctx.font = 'bold 40px sans-serif';
-  ctx.fillText( 'Opciones', w / 2, h / 2 - 80 );
+  ctx.fillText( 'Selecciona un nivel', w / 2, h / 2 - 100 );
 
-  ctx.font = '24px sans-serif';
-  ctx.fillText( `< Volumen: ${ volumePercent }% >`, w / 2, h / 2 );
+  renderSelectableList( ctx, state, items, h / 2 - 20 );
+}
 
+const VOLUME_BAR_WIDTH = 300;
+const VOLUME_BAR_HEIGHT = 20;
+
+function renderOptions( ctx, state ) {
+  const { w, h } = CONFIG.canvas;
+  const volumeY = h / 2 - 60;
+  const volverY = h / 2 + 80;
+
+  ctx.fillStyle = '#fff';
+  ctx.textAlign = 'center';
+
+  ctx.font = 'bold 40px sans-serif';
+  ctx.fillText( 'Opciones', w / 2, h / 2 - 140 );
+
+  renderSelectableList( ctx, state, [ 'Volumen', 'Volver' ], volumeY, volverY - volumeY );
+
+  const barX = w / 2 - VOLUME_BAR_WIDTH / 2;
+  const barY = volumeY + 30;
+
+  ctx.strokeStyle = '#fff';
+  ctx.lineWidth = 2;
+  ctx.strokeRect( barX, barY, VOLUME_BAR_WIDTH, VOLUME_BAR_HEIGHT );
+  ctx.fillStyle = '#ffde00';
+  ctx.fillRect( barX, barY, VOLUME_BAR_WIDTH * state.volume, VOLUME_BAR_HEIGHT );
+
+  ctx.fillStyle = '#fff';
   ctx.font = '18px sans-serif';
-  ctx.fillText( 'Flechas: ajustar   Enter/Esc: volver', w / 2, h / 2 + 60 );
+  ctx.fillText( 'Flechas: mover   Izq/Der: volumen   Enter/Esc: volver', w / 2, h / 2 + 140 );
 }
 
 function renderPaddle( ctx, state ) {
@@ -114,7 +145,7 @@ function renderWin( ctx ) {
   ctx.fillText( '¡Felicitaciones, ganaste!', w / 2, h / 2 );
 }
 
-function renderPauseOverlay( ctx ) {
+function renderPauseOverlay( ctx, state ) {
   const { w, h } = CONFIG.canvas;
 
   ctx.fillStyle = 'rgba(2, 6, 63, 0.6)';
@@ -123,10 +154,9 @@ function renderPauseOverlay( ctx ) {
   ctx.fillStyle = '#fff';
   ctx.textAlign = 'center';
   ctx.font = 'bold 40px sans-serif';
-  ctx.fillText( 'Pausa', w / 2, h / 2 );
+  ctx.fillText( 'Pausa', w / 2, h / 2 - 80 );
 
-  ctx.font = '18px sans-serif';
-  ctx.fillText( 'O: Opciones', w / 2, h / 2 + 40 );
+  renderSelectableList( ctx, state, [ 'Continuar', 'Opciones', 'Salir' ], h / 2 );
 }
 
 export function render( ctx, state ) {
@@ -134,6 +164,8 @@ export function render( ctx, state ) {
 
   if ( state.screen === 'menu' ) {
     renderMenu( ctx, state );
+  } else if ( state.screen === 'levelSelect' ) {
+    renderLevelSelect( ctx, state );
   } else if ( state.screen === 'options' ) {
     renderOptions( ctx, state );
   } else if ( state.screen === 'playing' || state.screen === 'paused' ) {
@@ -143,7 +175,7 @@ export function render( ctx, state ) {
     renderHUD( ctx, state );
 
     if ( state.screen === 'paused' ) {
-      renderPauseOverlay( ctx );
+      renderPauseOverlay( ctx, state );
     }
   } else if ( state.screen === 'levelComplete' ) {
     renderLevelComplete( ctx, state );

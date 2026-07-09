@@ -74,7 +74,7 @@ export function generateBlocks( levelId ) {
 }
 
 export const state = {
-  screen: 'menu', // 'menu' | 'playing' | 'paused' | 'options' | 'levelComplete' | 'gameover' | 'win'
+  screen: 'menu', // 'menu' | 'levelSelect' | 'playing' | 'paused' | 'options' | 'levelComplete' | 'gameover' | 'win'
   currentLevel: 1,
   menuSelection: 0,
   optionsReturnScreen: 'menu',
@@ -99,14 +99,29 @@ export const state = {
   },
   blocks: generateBlocks( 1 ),
   blockAnimations: [],
-  menuScales: LEVELS.map( () => 1 ).concat( 1 ),
+  menuScales: [ 1, 1 ],
   menuInputCooldown: 0,
 };
+
+export function menuItemCount( screen ) {
+  switch ( screen ) {
+    case 'menu': return 2; // Jugar, Opciones
+    case 'levelSelect': return LEVELS.length + 1; // niveles + Volver
+    case 'options': return 2; // Volumen, Volver
+    case 'paused': return 3; // Continuar, Opciones, Salir
+    default: return 0;
+  }
+}
+
+export function resetMenu( count ) {
+  state.menuSelection = 0;
+  state.menuScales = new Array( count ).fill( 1 );
+  state.menuInputCooldown = 0;
+}
 
 export function resetGame() {
   state.screen = 'menu';
   state.currentLevel = 1;
-  state.menuSelection = 0;
   state.score = 0;
   state.lives = 3;
   state.paddle.x = ( CONFIG.canvas.w - state.paddle.w ) / 2;
@@ -117,6 +132,5 @@ export function resetGame() {
   state.ball.attached = true;
   state.blocks = generateBlocks( state.currentLevel );
   state.blockAnimations = [];
-  state.menuScales = LEVELS.map( () => 1 ).concat( 1 );
-  state.menuInputCooldown = 0;
+  resetMenu( menuItemCount( 'menu' ) );
 }
