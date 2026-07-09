@@ -2,7 +2,7 @@
 
 Arkanoid con HTML, CSS y JavaScript, sin dependencias externas.
 
-MVP jugable implementado según `specs/01-arkanoid-mvp.md`, con animación de destrucción de bloques (`specs/02-block-destruction-animation.md`), ajuste de frames de daño progresivo (`specs/03-block-damage-frames-adjustment.md`), efectos de sonido (`specs/04-sound-effects.md`) y selección/progresión de 3 niveles (`specs/05-level-selection-and-progression.md`).
+Juego completo con 4 niveles jugables, menú de navegación por teclado y selección de nivel, efectos de sonido y animaciones de destrucción de bloques. El detalle de cada feature y sus decisiones de diseño está documentado en `specs/`.
 
 ## Cómo jugar
 
@@ -28,7 +28,8 @@ También funciona con la extensión "Live Server" de VSCode o `npx serve`.
 ## Estructura
 
 - `index.html`, `style.css` — canvas del juego y estilos.
-- `js/state.js` — estado global, configuración (tamaños, velocidades), definición de los 3 niveles y generación de bloques por nivel.
+- `js/state.js` — estado global, configuración (tamaños, velocidades) y generación de bloques por nivel.
+- `js/levels.js` — definición de los 4 niveles (`id`, `name`, `pattern`).
 - `js/render.js` — dibujo de cada pantalla (menú con zoom en la selección, juego, game over, victoria, pausa).
 - `js/input.js` — teclado, selección de nivel en el menú (zoom + input lag) y movimiento del paddle.
 - `js/collisions.js` — física de la bola, colisiones con paddle/bloques, vidas, condición de victoria/avance de nivel y disparo de sonidos.
@@ -38,7 +39,7 @@ También funciona con la extensión "Live Server" de VSCode o `npx serve`.
 
 ## Alcance actual
 
-- 3 niveles jugables en progresión (pirámide normal, pirámide invertida y calavera), 3 vidas por nivel, sin power-ups.
+- 4 niveles jugables en progresión, 3 vidas por nivel, sin power-ups.
 - Menú principal ("Jugar"/"Opciones"), selección de nivel, pausa y opciones con navegación por teclado y barra de volumen.
 - Bloques con daño progresivo y animación de explosión al destruirse.
 - Sonido de rebote de bola y de rotura de bloques.

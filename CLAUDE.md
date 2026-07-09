@@ -4,21 +4,22 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Estado del proyecto
 
-Este es un juego de Arkanoid con HTML, CSS y JavaScript **sin dependencias externas**. Specs implementadas hasta el momento:
+Este es un juego de Arkanoid completo (ya no un MVP) con HTML, CSS y JavaScript **sin dependencias externas**. Specs implementadas hasta el momento:
 
 - `specs/01-arkanoid-mvp.md` (`Implementado`): un solo nivel jugable con menú, HUD de score/vidas, Game Over, victoria y pausa.
 - `specs/02-block-destruction-animation.md` (`Implementado`): animación de destrucción de bloques usando los frames de explosión del spritesheet.
 - `specs/03-block-damage-frames-adjustment.md` (`Implementado`): ajuste de los frames de daño progresivo en bloques (11 columnas) para una animación más fluida.
 - `specs/04-sound-effects.md` (`Implementado`): sonido de rebote y de rotura de bloques vía `js/sound.js`.
-- `specs/05-level-selection-and-progression.md` (`Implementado`): niveles 2 y 3 (pirámide invertida y calavera), menú de selección por teclado y progresión automática entre niveles conservando el puntaje.
+- `specs/05-level-selection-and-progression.md` (`Implementado`): niveles 2 y 3, menú de selección por teclado y progresión automática entre niveles conservando el puntaje.
 - `specs/06-menu-navigation-and-volume-bar.md` (`Implementado`): menú principal con "Jugar"/"Opciones", pantalla `levelSelect` separada, Opciones y pausa convertidas en listas navegables (flechas + Enter), barra de volumen continua (`resetMenu`/`menuItemCount` en `js/state.js`).
 
-Además, sobre el menú de selección de nivel se agregó (fuera del flujo spec-driven, a pedido puntual) una animación de zoom en el ítem resaltado y un pequeño input lag (~150ms) entre pulsaciones de flecha para evitar saltos de más de un nivel por ráfaga de teclas — ver `MENU_SELECTED_SCALE`, `MENU_ZOOM_SPEED` y `MENU_INPUT_LAG` en `js/input.js`.
+Además, fuera del flujo spec-driven (a pedido puntual) se agregó un cuarto nivel en `js/levels.js`, y sobre el menú de selección de nivel una animación de zoom en el ítem resaltado y un pequeño input lag (~150ms) entre pulsaciones de flecha para evitar saltos de más de un nivel por ráfaga de teclas — ver `MENU_SELECTED_SCALE`, `MENU_ZOOM_SPEED` y `MENU_INPUT_LAG` en `js/input.js`.
 
 Estructura actual:
 
 - `index.html`, `style.css` — canvas 1000x800 y estilos.
-- `js/state.js` — estado global (`state`), constantes de configuración (`CONFIG`), definición de niveles (`LEVELS`), generación de bloques por nivel (`generateBlocks`) y helpers de menú compartidos (`resetMenu`, `menuItemCount`).
+- `js/state.js` — estado global (`state`), constantes de configuración (`CONFIG`), generación de bloques por nivel (`generateBlocks`) y helpers de menú compartidos (`resetMenu`, `menuItemCount`).
+- `js/levels.js` — definición de los 4 niveles (`LEVELS`: `id`, `name`, `pattern`).
 - `js/render.js` — dibujo de cada pantalla según `state.screen` (`menu`, `levelSelect`, `options`, `paused`, etc.), incluida la animación de zoom del menú y la barra continua de volumen.
 - `js/input.js` — teclado (movimiento del paddle, navegación por flechas/Enter en todas las pantallas de menú con zoom e input lag, ajuste de volumen, iniciar partida).
 - `js/collisions.js` — física de la bola, colisiones con paddle/bloques, vidas, condición de victoria/avance de nivel y disparo de sonidos.
