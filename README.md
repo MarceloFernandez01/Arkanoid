@@ -1,6 +1,10 @@
 # Juego de Arkanoid
 
-Arkanoid con HTML, CSS y JavaScript, sin dependencias externas. MVP jugable implementado según `specs/01-arkanoid-mvp.md`.
+Arkanoid con HTML, CSS y JavaScript, sin dependencias externas.
+
+**Jugar online:** https://marcelofernandez01.github.io/Arkanoid/
+
+MVP jugable implementado según `specs/01-arkanoid-mvp.md`, con animación de destrucción de bloques (`specs/02-block-destruction-animation.md`) y ajuste de frames de daño progresivo (`specs/03-block-damage-frames-adjustment.md`).
 
 ## Cómo jugar
 
@@ -28,8 +32,8 @@ También funciona con la extensión "Live Server" de VSCode o `npx serve`.
 - `js/input.js` — teclado y movimiento del paddle.
 - `js/collisions.js` — física de la bola, colisiones con paddle/bloques, vidas y condición de victoria.
 - `js/main.js` — loop principal (`requestAnimationFrame` con delta-time).
-- `assets/` — spritesheet y sonidos (los sonidos no se usan en este MVP, quedan para una spec futura).
+- `assets/` — spritesheet (incluye frames de daño progresivo y explosión de bloques) y sonidos (los sonidos todavía no se usan, quedan para una spec futura).
 
 ## Alcance actual
 
-Un solo nivel fijo, 3 vidas, sin power-ups ni sonido. El detalle completo del alcance y las decisiones de diseño está en `specs/01-arkanoid-mvp.md`.
+Un solo nivel fijo, 3 vidas, sin power-ups ni sonido. Los bloques muestran daño progresivo y una animación de explosión al destruirse. El detalle completo del alcance y las decisiones de diseño está en `specs/01-arkanoid-mvp.md`, `specs/02-block-destruction-animation.md` y `specs/03-block-damage-frames-adjustment.md`.

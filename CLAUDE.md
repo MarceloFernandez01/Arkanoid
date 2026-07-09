@@ -4,7 +4,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Estado del proyecto
 
-Este es un juego de Arkanoid con HTML, CSS y JavaScript **sin dependencias externas**. El MVP (`specs/01-arkanoid-mvp.md`, estado `Implementado`) ya está implementado: un solo nivel jugable con menú, HUD de score/vidas, Game Over, victoria y pausa.
+Este es un juego de Arkanoid con HTML, CSS y JavaScript **sin dependencias externas**. Specs implementadas hasta el momento:
+
+- `specs/01-arkanoid-mvp.md` (`Implementado`): un solo nivel jugable con menú, HUD de score/vidas, Game Over, victoria y pausa.
+- `specs/02-block-destruction-animation.md` (`Implementado`): animación de destrucción de bloques usando los frames de explosión del spritesheet.
+- `specs/03-block-damage-frames-adjustment.md` (`Implementado`): ajuste de los frames de daño progresivo en bloques (11 columnas) para una animación más fluida.
 
 Estructura actual:
 
@@ -34,4 +38,4 @@ Cero dependencias: no se debe introducir ningún framework, bundler o librería 
 
 - `assets/spritesheet-breakout.png` — spritesheet con paddle, bola, bloques (por color) y frames de explosión.
 - `assets/spritesheet.js` — helper vanilla-JS ya implementado para cargar el spritesheet y dibujar sprites/frames en un `<canvas>` (`loadSpritesheet`, `drawSprite`, `drawFrame`). Cualquier renderizado del juego debería reutilizar estas funciones en vez de duplicar lógica de dibujo.
-- `assets/sounds/ball-bounce.mp3`, `assets/sounds/break-sound.mp3` — efectos de sonido para rebote de la bola y rotura de bloques.
+- `assets/sounds/ball-bounce.mp3`, `assets/sounds/break-sound.mp3` — efectos de sonido para rebote de la bola y rotura de bloques (todavía no integrados en el código; quedan para una spec futura).
