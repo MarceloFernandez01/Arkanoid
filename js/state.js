@@ -3,7 +3,7 @@ export const CONFIG = {
   paddle: { w: 162, h: 14, marginBottom: 40, speed: 500 },
   ball: { w: 24, h: 24, speed: 380 },
   grid: { rows: 5, cols: 9, blockW: 60, blockH: 30, gap: 10, marginTop: 60 },
-  colors: [ 'gray', 'red', 'yellow', 'cyan', 'magenta', 'hotpink', 'green' ],
+  colors: [ 'red', 'yellow', 'cyan', 'magenta', 'hotpink', 'green' ],
 };
 
 function generateBlocks() {
