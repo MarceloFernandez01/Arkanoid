@@ -8,7 +8,7 @@ Este es un juego de Arkanoid con HTML, CSS y JavaScript **sin dependencias exter
 
 Estructura actual:
 
-- `index.html`, `style.css` — canvas 800x600 y estilos.
+- `index.html`, `style.css` — canvas 1000x800 y estilos.
 - `js/state.js` — estado global (`state`) y constantes de configuración (`CONFIG`).
 - `js/render.js` — dibujo de cada pantalla según `state.screen`.
 - `js/input.js` — teclado (movimiento del paddle, pausa, iniciar partida).

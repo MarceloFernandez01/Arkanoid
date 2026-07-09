@@ -11,7 +11,7 @@
 
 **In:**
 
-- Un único nivel fijo de 800x600 px, con 5 filas x 8 columnas de bloques (40 bloques totales), usando los 7 colores disponibles en el spritesheet (gray, red, yellow, cyan, magenta, hotpink, green).
+- Un único nivel fijo de 1000x800 px, con 5 filas x 8 columnas de bloques (40 bloques totales), usando los 7 colores disponibles en el spritesheet (gray, red, yellow, cyan, magenta, hotpink, green).
 - Movimiento del paddle con teclado (flechas izquierda/derecha o A/D).
 - Física de rebote de la bola en paredes y paddle, con cambio de ángulo según el punto de impacto en el paddle.
 - Sistema de bloques con 3 golpes de resistencia por bloque, sin bloques indestructibles.
@@ -56,7 +56,7 @@ const state = {
 
 Conventions:
 
-- Canvas: 800x600 px. Coordenadas con origen top-left.
+- Canvas: 1000x800 px. Coordenadas con origen top-left.
 - Grid de bloques: 5 filas x 8 columnas, bloque 90x30 px, gap 10 px entre bloques, margen superior 60 px (deja espacio para el HUD de score/vidas), margen horizontal 5 px.
 - Paddle: 162x14 px (tamaño nativo del sprite), posicionado a 40 px del borde inferior del canvas.
 - Ball: 16x16 px (tamaño nativo del sprite).
@@ -67,7 +67,7 @@ Conventions:
 
 ## Implementation plan
 
-1. Crear `index.html` con `<canvas id="game" width="800" height="600">`, enlazando `assets/spritesheet.js` y `js/main.js` (como `<script type="module">`), y `style.css`. Test manual: abrir el HTML y ver un canvas vacío sin errores en consola.
+1. Crear `index.html` con `<canvas id="game" width="1000" height="800">`, enlazando `assets/spritesheet.js` y `js/main.js` (como `<script type="module">`), y `style.css`. Test manual: abrir el HTML y ver un canvas vacío sin errores en consola.
 2. Crear `js/state.js` con el objeto `state` y las constantes de configuración (tamaños de canvas, paddle, ball, grid de bloques, velocidades en px/segundo). Crear `js/main.js` con el loop principal (`requestAnimationFrame`) que calcula el delta-time entre frames, importa `state.js` y solo limpia/redibuja el canvas según `state.screen`. Test manual: la consola no muestra errores y el loop corre.
 3. Crear `js/render.js` con la función de dibujo de la pantalla de menú (texto "ARKANOID" + "Jugar"). Crear `js/input.js` con el listener de tecla espacio/clic que cambia `state.screen` a `'playing'`. Conectar ambos desde `main.js`. Test manual: se ve el menú y al presionar espacio cambia de pantalla.
 4. En `render.js`, agregar dibujo del paddle con `drawSprite`. En `input.js`, agregar movimiento con flechas/A-D limitado a los bordes del canvas, activo solo cuando `state.screen === 'playing'`. Test manual: el paddle se mueve y no sale del canvas.
