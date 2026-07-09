@@ -57,6 +57,18 @@ function resetRound() {
   ball.vy = -CONFIG.ball.speed;
 }
 
+function startBlockAnimation( block, fromFrame, toFrame, removeOnEnd ) {
+  state.blockAnimations = state.blockAnimations.filter( ( anim ) => anim.blockRef !== block );
+
+  state.blockAnimations.push( {
+    blockRef: block,
+    fromFrame,
+    toFrame,
+    elapsed: 0,
+    removeOnEnd,
+  } );
+}
+
 function updateBlocks( ball ) {
   for ( const block of state.blocks ) {
     if ( block.broken ) continue;
@@ -70,14 +82,35 @@ function updateBlocks( ball ) {
     if ( block.hits >= 3 ) {
       block.broken = true;
       state.score += 100;
+      startBlockAnimation( block, 1, 3, true );
 
       if ( state.blocks.every( ( b ) => b.broken ) ) {
         state.screen = 'win';
       }
+    } else if ( block.hits === 1 ) {
+      startBlockAnimation( block, -1, 0, false );
+    } else if ( block.hits === 2 ) {
+      startBlockAnimation( block, 0, 1, false );
     }
 
     break;
   }
+}
+
+export function updateBlockAnimations( dt ) {
+  state.blockAnimations = state.blockAnimations.filter( ( anim ) => {
+    anim.elapsed += dt * 1000;
+
+    const { fromFrame, toFrame, elapsed } = anim;
+    const frameIndex = Math.min(
+      toFrame,
+      fromFrame + Math.floor( ( elapsed / EXPLOSION_DURATION ) * ( toFrame - fromFrame + 1 ) )
+    );
+
+    anim.blockRef.crackFrame = frameIndex;
+
+    return elapsed < EXPLOSION_DURATION;
+  } );
 }
 
 export function updateBall( dt ) {

@@ -24,6 +24,7 @@ function generateBlocks() {
         color: CONFIG.colors[ Math.floor( Math.random() * CONFIG.colors.length ) ],
         hits: 0,
         broken: false,
+        crackFrame: -1,
       } );
     }
   }
@@ -51,6 +52,7 @@ export const state = {
     vy: -CONFIG.ball.speed,
   },
   blocks: generateBlocks(),
+  blockAnimations: [],
 };
 
 export function resetGame() {
@@ -63,4 +65,5 @@ export function resetGame() {
   state.ball.vx = CONFIG.ball.speed;
   state.ball.vy = -CONFIG.ball.speed;
   state.blocks = generateBlocks();
+  state.blockAnimations = [];
 }

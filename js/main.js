@@ -1,7 +1,7 @@
 import { state, CONFIG, resetGame } from './state.js';
 import { render } from './render.js';
 import { setupInput, updatePaddle } from './input.js';
-import { updateBall } from './collisions.js';
+import { updateBall, updateBlockAnimations } from './collisions.js';
 
 const canvas = document.getElementById( 'game' );
 const ctx = canvas.getContext( '2d' );
@@ -14,6 +14,7 @@ let endScreenTimer = 0;
 function update( dt ) {
   updatePaddle( dt );
   updateBall( dt );
+  updateBlockAnimations( dt );
 
   if ( state.screen === 'gameover' || state.screen === 'win' ) {
     endScreenTimer += dt;
