@@ -1,14 +1,14 @@
 const EXPLOSION_FRAMES = {
-  red: [ { sx: 256, sy: 176, sw: 32, sh: 16 }, { sx: 288, sy: 176, sw: 32, sh: 16 }, { sx: 320, sy: 176, sw: 32, sh: 16 }, { sx: 352, sy: 176, sw: 32, sh: 16 } ],
-  cyan: [ { sx: 256, sy: 192, sw: 32, sh: 16 }, { sx: 288, sy: 192, sw: 32, sh: 16 }, { sx: 320, sy: 192, sw: 32, sh: 16 }, { sx: 352, sy: 192, sw: 32, sh: 16 } ],
-  green: [ { sx: 256, sy: 208, sw: 32, sh: 16 }, { sx: 288, sy: 208, sw: 32, sh: 16 }, { sx: 320, sy: 208, sw: 32, sh: 16 }, { sx: 352, sy: 208, sw: 32, sh: 16 } ],
-  magenta: [ { sx: 256, sy: 224, sw: 32, sh: 16 }, { sx: 288, sy: 224, sw: 32, sh: 16 }, { sx: 320, sy: 224, sw: 32, sh: 16 }, { sx: 352, sy: 224, sw: 32, sh: 16 } ],
-  yellow: [ { sx: 256, sy: 240, sw: 32, sh: 16 }, { sx: 288, sy: 240, sw: 32, sh: 16 }, { sx: 320, sy: 240, sw: 32, sh: 16 }, { sx: 352, sy: 240, sw: 32, sh: 16 } ],
-  hotpink: [ { sx: 256, sy: 256, sw: 32, sh: 16 }, { sx: 288, sy: 256, sw: 32, sh: 16 }, { sx: 320, sy: 256, sw: 32, sh: 16 }, { sx: 352, sy: 256, sw: 32, sh: 16 } ],
-  gray: [ { sx: 256, sy: 176, sw: 32, sh: 16 }, { sx: 288, sy: 176, sw: 32, sh: 16 }, { sx: 320, sy: 176, sw: 32, sh: 16 }, { sx: 352, sy: 176, sw: 32, sh: 16 } ],
+  red: [ { sx: 64, sy: 176, sw: 32, sh: 16 }, { sx: 96, sy: 176, sw: 32, sh: 16 }, { sx: 128, sy: 176, sw: 32, sh: 16 }, { sx: 160, sy: 176, sw: 32, sh: 16 }, { sx: 192, sy: 176, sw: 32, sh: 16 }, { sx: 224, sy: 176, sw: 32, sh: 16 }, { sx: 256, sy: 176, sw: 32, sh: 16 }, { sx: 288, sy: 176, sw: 32, sh: 16 }, { sx: 320, sy: 176, sw: 32, sh: 16 }, { sx: 352, sy: 176, sw: 32, sh: 16 }, { sx: 384, sy: 176, sw: 32, sh: 16 } ],
+  cyan: [ { sx: 64, sy: 192, sw: 32, sh: 16 }, { sx: 96, sy: 192, sw: 32, sh: 16 }, { sx: 128, sy: 192, sw: 32, sh: 16 }, { sx: 160, sy: 192, sw: 32, sh: 16 }, { sx: 192, sy: 192, sw: 32, sh: 16 }, { sx: 224, sy: 192, sw: 32, sh: 16 }, { sx: 256, sy: 192, sw: 32, sh: 16 }, { sx: 288, sy: 192, sw: 32, sh: 16 }, { sx: 320, sy: 192, sw: 32, sh: 16 }, { sx: 352, sy: 192, sw: 32, sh: 16 }, { sx: 384, sy: 192, sw: 32, sh: 16 } ],
+  green: [ { sx: 64, sy: 208, sw: 32, sh: 16 }, { sx: 96, sy: 208, sw: 32, sh: 16 }, { sx: 128, sy: 208, sw: 32, sh: 16 }, { sx: 160, sy: 208, sw: 32, sh: 16 }, { sx: 192, sy: 208, sw: 32, sh: 16 }, { sx: 224, sy: 208, sw: 32, sh: 16 }, { sx: 256, sy: 208, sw: 32, sh: 16 }, { sx: 288, sy: 208, sw: 32, sh: 16 }, { sx: 320, sy: 208, sw: 32, sh: 16 }, { sx: 352, sy: 208, sw: 32, sh: 16 }, { sx: 384, sy: 208, sw: 32, sh: 16 } ],
+  magenta: [ { sx: 64, sy: 224, sw: 32, sh: 16 }, { sx: 96, sy: 224, sw: 32, sh: 16 }, { sx: 128, sy: 224, sw: 32, sh: 16 }, { sx: 160, sy: 224, sw: 32, sh: 16 }, { sx: 192, sy: 224, sw: 32, sh: 16 }, { sx: 224, sy: 224, sw: 32, sh: 16 }, { sx: 256, sy: 224, sw: 32, sh: 16 }, { sx: 288, sy: 224, sw: 32, sh: 16 }, { sx: 320, sy: 224, sw: 32, sh: 16 }, { sx: 352, sy: 224, sw: 32, sh: 16 }, { sx: 384, sy: 224, sw: 32, sh: 16 } ],
+  yellow: [ { sx: 64, sy: 240, sw: 32, sh: 16 }, { sx: 96, sy: 240, sw: 32, sh: 16 }, { sx: 128, sy: 240, sw: 32, sh: 16 }, { sx: 160, sy: 240, sw: 32, sh: 16 }, { sx: 192, sy: 240, sw: 32, sh: 16 }, { sx: 224, sy: 240, sw: 32, sh: 16 }, { sx: 256, sy: 240, sw: 32, sh: 16 }, { sx: 288, sy: 240, sw: 32, sh: 16 }, { sx: 320, sy: 240, sw: 32, sh: 16 }, { sx: 352, sy: 240, sw: 32, sh: 16 }, { sx: 384, sy: 240, sw: 32, sh: 16 } ],
+  hotpink: [ { sx: 64, sy: 256, sw: 32, sh: 16 }, { sx: 96, sy: 256, sw: 32, sh: 16 }, { sx: 128, sy: 256, sw: 32, sh: 16 }, { sx: 160, sy: 256, sw: 32, sh: 16 }, { sx: 192, sy: 256, sw: 32, sh: 16 }, { sx: 224, sy: 256, sw: 32, sh: 16 }, { sx: 256, sy: 256, sw: 32, sh: 16 }, { sx: 288, sy: 256, sw: 32, sh: 16 }, { sx: 320, sy: 256, sw: 32, sh: 16 }, { sx: 352, sy: 256, sw: 32, sh: 16 }, { sx: 384, sy: 256, sw: 32, sh: 16 } ],
+  gray: [ { sx: 64, sy: 176, sw: 32, sh: 16 }, { sx: 96, sy: 176, sw: 32, sh: 16 }, { sx: 128, sy: 176, sw: 32, sh: 16 }, { sx: 160, sy: 176, sw: 32, sh: 16 }, { sx: 192, sy: 176, sw: 32, sh: 16 }, { sx: 224, sy: 176, sw: 32, sh: 16 }, { sx: 256, sy: 176, sw: 32, sh: 16 }, { sx: 288, sy: 176, sw: 32, sh: 16 }, { sx: 320, sy: 176, sw: 32, sh: 16 }, { sx: 352, sy: 176, sw: 32, sh: 16 }, { sx: 384, sy: 176, sw: 32, sh: 16 } ],
 };
 
-const EXPLOSION_DURATION = 150;
+const EXPLOSION_DURATION = 300;
 
 const SPRITES = {
   paddle: { sx: 32, sy: 112, sw: 162, sh: 14 },
