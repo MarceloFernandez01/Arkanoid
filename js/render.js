@@ -25,8 +25,15 @@ function renderBall( ctx, state ) {
 
 function renderBlocks( ctx, state ) {
   for ( const block of state.blocks ) {
-    if ( block.broken ) continue;
-    drawSprite( ctx, `block_${ block.color }`, block.x, block.y, block.w, block.h );
+    const hasActiveAnimation = state.blockAnimations.some( ( anim ) => anim.blockRef === block );
+
+    if ( block.broken && !hasActiveAnimation ) continue;
+
+    if ( block.crackFrame >= 0 ) {
+      drawFrame( ctx, EXPLOSION_FRAMES[ block.color ][ block.crackFrame ], block.x, block.y, block.w, block.h );
+    } else {
+      drawSprite( ctx, `block_${ block.color }`, block.x, block.y, block.w, block.h );
+    }
   }
 }
 
