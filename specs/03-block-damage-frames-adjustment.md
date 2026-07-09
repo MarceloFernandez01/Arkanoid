@@ -1,6 +1,6 @@
 # SPEC 03 — Ajuste de frames de daño progresivo en bloques
 
-> **Status:** Aprobado
+> **Status:** Implementado
 > **Depends on:** SPEC 02
 > **Date:** 2026-07-09
 > **Objective:** Reemplazar los frames de grieta/explosión usados en SPEC 02 por un rango más amplio de columnas del spritesheet (col 1→3 en golpe 1, col 3→6 en golpe 2, col 6→12 en golpe 3), con una animación más lenta (300 ms), para que el daño progresivo se vea más gradual y con más pasos intermedios.
@@ -73,17 +73,17 @@ Conventions:
 
 ## Acceptance criteria
 
-- [ ] Al recibir el golpe 1, el bloque anima desde el sprite normal (columna 1) hasta la columna 3 del spritesheet, en 300 ms, quedando asentado ahí.
-- [ ] Al recibir el golpe 2, el bloque anima desde la columna 3 hasta la columna 6, en 300 ms, quedando asentado ahí.
-- [ ] Al recibir el golpe 3, el bloque deja de colisionar inmediatamente (`broken = true`) y anima desde la columna 6 hasta la columna 12, en 300 ms.
-- [ ] Al terminar la animación del golpe 3, el bloque deja de dibujarse por completo.
-- [ ] La progresión visual coincide con las 3 imágenes de referencia provistas por el usuario (grieta leve, grieta densa, dispersión total).
-- [ ] Un bloque `gray` se sigue rompiendo correctamente en 3 golpes sin errores, reutilizando los frames de `red` (sin cambio de comportamiento respecto a SPEC 02).
-- [ ] El score sigue sumando exactamente igual que en SPEC 01/02 (+10 por golpe, +100 adicional al romperse).
-- [ ] Si un bloque recibe un nuevo golpe mientras su animación anterior aún está en curso, la animación previa se reemplaza por la nueva sin quedar en un estado inconsistente.
-- [ ] Varios bloques pueden animarse en simultáneo sin interferir entre sí.
-- [ ] No se agregó ninguna dependencia externa.
-- [ ] El juego sigue cargando sin errores en la consola.
+- [x] Al recibir el golpe 1, el bloque anima desde el sprite normal (columna 1) hasta la columna 3 del spritesheet, en 300 ms, quedando asentado ahí.
+- [x] Al recibir el golpe 2, el bloque anima desde la columna 3 hasta la columna 6, en 300 ms, quedando asentado ahí.
+- [x] Al recibir el golpe 3, el bloque deja de colisionar inmediatamente (`broken = true`) y anima desde la columna 6 hasta la columna 12, en 300 ms.
+- [x] Al terminar la animación del golpe 3, el bloque deja de dibujarse por completo.
+- [x] La progresión visual coincide con las 3 imágenes de referencia provistas por el usuario (grieta leve, grieta densa, dispersión total).
+- [x] Un bloque `gray` se sigue rompiendo correctamente en 3 golpes sin errores, reutilizando los frames de `red` (sin cambio de comportamiento respecto a SPEC 02).
+- [x] El score sigue sumando exactamente igual que en SPEC 01/02 (+10 por golpe, +100 adicional al romperse).
+- [x] Si un bloque recibe un nuevo golpe mientras su animación anterior aún está en curso, la animación previa se reemplaza por la nueva sin quedar en un estado inconsistente.
+- [x] Varios bloques pueden animarse en simultáneo sin interferir entre sí.
+- [x] No se agregó ninguna dependencia externa.
+- [x] El juego sigue cargando sin errores en la consola.
 
 ---
 

@@ -82,15 +82,15 @@ function updateBlocks( ball ) {
     if ( block.hits >= 3 ) {
       block.broken = true;
       state.score += 100;
-      startBlockAnimation( block, 1, 3, true );
+      startBlockAnimation( block, 4, 10, true );
 
       if ( state.blocks.every( ( b ) => b.broken ) ) {
         state.screen = 'win';
       }
     } else if ( block.hits === 1 ) {
-      startBlockAnimation( block, -1, 0, false );
+      startBlockAnimation( block, -1, 1, false );
     } else if ( block.hits === 2 ) {
-      startBlockAnimation( block, 0, 1, false );
+      startBlockAnimation( block, 1, 4, false );
     }
 
     break;
