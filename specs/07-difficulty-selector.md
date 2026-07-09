@@ -1,6 +1,6 @@
 # SPEC 07 — Selector de dificultad
 
-> **Status:** Aprobado
+> **Status:** Integrado
 > **Depends on:** SPEC 05, SPEC 06
 > **Date:** 2026-07-09
 > **Objective:** Agregar una pantalla de selección de dificultad (Fácil/Normal/Difícil) entre el menú principal y la selección de nivel, que ajusta la resistencia de los bloques, la velocidad de la bola y si las vidas se reinician al progresar de nivel.
@@ -107,21 +107,21 @@ Conventions:
 
 ## Acceptance criteria
 
-- [ ] Al elegir "Jugar" desde el menú principal, se muestra la pantalla `difficultySelect` con "Fácil", "Normal", "Difícil" y "Volver".
-- [ ] Elegir una dificultad (Enter) avanza a `levelSelect` sin iniciar la partida todavía.
-- [ ] "Volver" (o Escape) en `difficultySelect` regresa al menú principal.
-- [ ] "Volver" (o Escape) en `levelSelect` regresa a `difficultySelect`, no directo al menú principal.
-- [ ] Al reabrir `difficultySelect` en la misma sesión, el cursor resalta la última dificultad elegida.
-- [ ] En Fácil, cada bloque se rompe con un solo golpe, mostrando la animación completa de rotura.
-- [ ] En Fácil, la bola se mueve a 285 px/s (25% más lenta que Normal).
-- [ ] En Normal, el comportamiento es idéntico al actual: bloques de 3 golpes, bola a 380 px/s, vidas reiniciadas a 3 en cada progresión de nivel.
-- [ ] En Difícil, los bloques siguen requiriendo 3 golpes.
-- [ ] En Difícil, la bola se mueve a 475 px/s (25% más rápida que Normal).
-- [ ] En Difícil, al progresar automáticamente de un nivel a otro (1→2→3), las vidas NO se reinician a 3 — se conservan las vidas actuales.
-- [ ] En cualquier dificultad, elegir un nivel manualmente desde `levelSelect` siempre arranca con 3 vidas y score 0.
-- [ ] En cualquier dificultad, un Game Over vuelve a `levelSelect` y deja la dificultad elegida sin cambios para la siguiente partida.
-- [ ] No se agrega persistencia de dificultad entre sesiones ni soporte de mouse/touch.
-- [ ] El juego carga y se navega sin errores en la consola.
+- [x] Al elegir "Jugar" desde el menú principal, se muestra la pantalla `difficultySelect` con "Fácil", "Normal", "Difícil" y "Volver".
+- [x] Elegir una dificultad (Enter) avanza a `levelSelect` sin iniciar la partida todavía.
+- [x] "Volver" (o Escape) en `difficultySelect` regresa al menú principal.
+- [x] "Volver" (o Escape) en `levelSelect` regresa a `difficultySelect`, no directo al menú principal.
+- [x] Al reabrir `difficultySelect` en la misma sesión, el cursor resalta la última dificultad elegida.
+- [x] En Fácil, cada bloque se rompe con un solo golpe, mostrando la animación completa de rotura.
+- [x] En Fácil, la bola se mueve a 285 px/s (25% más lenta que Normal).
+- [x] En Normal, el comportamiento es idéntico al actual: bloques de 3 golpes, bola a 380 px/s, vidas reiniciadas a 3 en cada progresión de nivel.
+- [x] En Difícil, los bloques siguen requiriendo 3 golpes.
+- [x] En Difícil, la bola se mueve a 475 px/s (25% más rápida que Normal).
+- [x] En Difícil, al progresar automáticamente de un nivel a otro (1→2→3), las vidas NO se reinician a 3 — se conservan las vidas actuales.
+- [x] En cualquier dificultad, elegir un nivel manualmente desde `levelSelect` siempre arranca con 3 vidas y score 0.
+- [x] En cualquier dificultad, un Game Over vuelve a `levelSelect` y deja la dificultad elegida sin cambios para la siguiente partida.
+- [x] No se agrega persistencia de dificultad entre sesiones ni soporte de mouse/touch.
+- [x] El juego carga y se navega sin errores en la consola.
 
 ---
 
