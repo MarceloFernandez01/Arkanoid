@@ -1,13 +1,15 @@
 export const CONFIG = {
   canvas: { w: 800, h: 600 },
   paddle: { w: 162, h: 14, marginBottom: 40, speed: 500 },
-  ball: { w: 16, h: 16, speed: 400 },
-  grid: { rows: 5, cols: 8, blockW: 90, blockH: 30, gap: 10, marginTop: 60, marginX: 5 },
+  ball: { w: 24, h: 24, speed: 380 },
+  grid: { rows: 5, cols: 9, blockW: 60, blockH: 30, gap: 10, marginTop: 60 },
   colors: [ 'gray', 'red', 'yellow', 'cyan', 'magenta', 'hotpink', 'green' ],
 };
 
 function generateBlocks() {
-  const { rows, cols, blockW, blockH, gap, marginTop, marginX } = CONFIG.grid;
+  const { rows, cols, blockW, blockH, gap, marginTop } = CONFIG.grid;
+  const gridW = cols * blockW + ( cols - 1 ) * gap;
+  const marginX = ( CONFIG.canvas.w - gridW ) / 2;
   const blocks = [];
 
   for ( let row = 0; row < rows; row++ ) {

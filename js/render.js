@@ -61,7 +61,7 @@ function renderWin( ctx ) {
 function renderPauseOverlay( ctx ) {
   const { w, h } = CONFIG.canvas;
 
-  ctx.fillStyle = 'rgba(0, 0, 0, 0.6)';
+  ctx.fillStyle = 'rgba(2, 6, 63, 0.6)';
   ctx.fillRect( 0, 0, w, h );
 
   ctx.fillStyle = '#fff';
